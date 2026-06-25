@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Редактор данных - ООО «АБСОЛЮТ»</title>
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body class="editor-body">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <img src="assets/logo.png" alt="ООО АБСОЛЮТ">
+        <span><strong>ООО «АБСОЛЮТ»</strong><span>редактор сайта</span></span>
+      </a>
+      <nav class="nav is-editor-nav">
+        <a href="index.html">Сайт</a>
+        <a href="projects.html">Проекты</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn--gold" type="button" data-download-content>Скачать content.js</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="editor-main">
+    <section class="section">
+      <div class="container editor-layout">
+        <aside class="editor-sidebar">
+          <span class="eyebrow">admin lite</span>
+          <h1>Редактор данных</h1>
+          <p>Меняй контакты, соцсети, карточки проектов, партнеров и реестр. После правок скачай новый файл и замени им <code>assets/content.js</code>.</p>
+          <div class="editor-tabs" data-editor-tabs>
+            <button class="is-active" type="button" data-tab="contacts">Контакты</button>
+            <button type="button" data-tab="projects">Проекты</button>
+            <button type="button" data-tab="registry">Реестр</button>
+            <button type="button" data-tab="partners">Партнеры</button>
+            <button type="button" data-tab="raw">JSON</button>
+          </div>
+          <div class="editor-note">
+            <strong>Фото</strong>
+            <span>Для замены фото положи файл в папку <code>assets/projects</code> или <code>assets/partners</code> и укажи путь вида <code>assets/projects/name.jpg</code>.</span>
+          </div>
+        </aside>
+
+        <section class="editor-panel">
+          <div class="editor-toolbar">
+            <div>
+              <span class="eyebrow">данные сайта</span>
+              <h2 data-editor-title>Контакты</h2>
+            </div>
+            <div class="editor-actions">
+              <button class="btn btn--glass" type="button" data-reset-editor>Сбросить</button>
+              <button class="btn btn--gold" type="button" data-download-content>Скачать content.js</button>
+            </div>
+          </div>
+          <div data-editor-view></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>Локальный редактор. Не публикуй страницу без необходимости.</span>
+      <span>Файл данных: assets/content.js</span>
+    </div>
+  </footer>
+
+  <script src="assets/content.js"></script>
+  <script src="assets/editor.js"></script>
+</body>
+</html>

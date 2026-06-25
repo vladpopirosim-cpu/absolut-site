@@ -1,0 +1,98 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: vladpopirosim-cpu/absolut-site
+  branch: main
+
+media_folder: assets/uploads
+public_folder: /assets/uploads
+locale: ru
+
+collections:
+  - name: site
+    label: Данные сайта
+    files:
+      - name: content
+        label: Контент ООО «АБСОЛЮТ»
+        file: assets/content.json
+        format: json
+        fields:
+          - label: Контакты и настройки
+            name: settings
+            widget: object
+            collapsed: false
+            fields:
+              - { label: Название, name: companyName, widget: string }
+              - { label: Подпись в шапке, name: tagline, widget: string }
+              - { label: Телефон на сайте, name: phoneDisplay, widget: string }
+              - { label: Телефон для ссылки, name: phoneHref, widget: string }
+              - { label: Основная почта, name: primaryEmail, widget: string }
+              - { label: Проектная почта, name: projectEmail, widget: string }
+              - { label: Endpoint формы, name: formEndpoint, widget: string, required: false }
+              - { label: Адрес, name: address, widget: text }
+              - label: Реквизиты
+                name: requisites
+                widget: object
+                fields:
+                  - { label: ИНН, name: inn, widget: string }
+                  - { label: КПП, name: kpp, widget: string, required: false }
+                  - { label: Расчетный счет, name: account, widget: string, required: false }
+                  - { label: БИК, name: bik, widget: string, required: false }
+                  - { label: Банк, name: bank, widget: string, required: false }
+              - label: Соцсети
+                name: socials
+                widget: list
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: Название, name: label, widget: string }
+                  - { label: Ссылка, name: url, widget: string }
+
+          - label: Проекты с фотографиями
+            name: projects
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Название, name: title, widget: string }
+              - { label: Краткое описание, name: meta, widget: string }
+              - { label: Категория, name: category, widget: string }
+              - { label: Статус, name: status, widget: string }
+              - { label: Локация, name: location, widget: string }
+              - { label: Заказчик / партнер, name: client, widget: string }
+              - { label: Работы, name: works, widget: text }
+              - { label: Фото, name: image, widget: image }
+              - { label: Акцент, name: accent, widget: string, required: false }
+              - label: Факты
+                name: facts
+                widget: list
+                field: { label: Факт, name: fact, widget: string }
+              - { label: Проверенная справка, name: verified, widget: text, required: false }
+
+          - label: Социальные объекты
+            name: socialProjects
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Название, name: title, widget: string }
+              - { label: Описание, name: meta, widget: string }
+              - { label: Тип, name: type, widget: string }
+              - { label: Фото, name: image, widget: image, required: false }
+
+          - label: Полный реестр объектов
+            name: objectRegistry
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Объект, name: name, widget: string }
+              - { label: Город / адрес, name: place, widget: string }
+              - { label: Партнер, name: partner, widget: string }
+              - { label: Работы, name: works, widget: string }
+
+          - label: Партнеры
+            name: partners
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Название, name: name, widget: string }
+              - { label: Логотип, name: logo, widget: image }
+              - { label: Описание, name: description, widget: string, required: false }
