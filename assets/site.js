@@ -106,24 +106,35 @@ function initMissionCounters() {
   };
 
   const finish = () => counters.forEach((node) => setValue(node, Number(node.dataset.countTo || 0)));
+  const panel = counters[0].closest(".mission-panel");
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     finish();
+    panel?.classList.add("is-ready");
     return;
   }
 
   const animate = () => {
-    const duration = 1100;
+    panel?.classList.add("is-animating");
+    const duration = 2200;
     const startedAt = performance.now();
 
     const step = (now) => {
       const progress = Math.min((now - startedAt) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      counters.forEach((node) => {
+      counters.forEach((node, index) => {
         const target = Number(node.dataset.countTo || 0);
-        setValue(node, Math.round(target * eased));
+        const localProgress = Math.min(Math.max((progress - index * 0.08) / 0.76, 0), 1);
+        const localEased = 1 - Math.pow(1 - localProgress, 3);
+        setValue(node, Math.round(target * localEased));
       });
-      if (progress < 1) requestAnimationFrame(step);
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        finish();
+        panel?.classList.remove("is-animating");
+        panel?.classList.add("is-ready");
+      }
     };
 
     requestAnimationFrame(step);
@@ -140,7 +151,7 @@ function initMissionCounters() {
     animate();
   }, { threshold: 0.35 });
 
-  observer.observe(counters[0].closest(".mission-panel") || counters[0]);
+  observer.observe(panel || counters[0]);
 }
 
 function initCopyCards() {

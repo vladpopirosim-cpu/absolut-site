@@ -359,6 +359,8 @@ h3 {
 }
 
 .mission-panel {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.045));
@@ -366,8 +368,33 @@ h3 {
   backdrop-filter: blur(18px);
 }
 
+.mission-panel::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    linear-gradient(115deg, transparent 34%, rgba(240, 202, 105, .2) 45%, rgba(89, 214, 201, .16) 52%, transparent 64%);
+  opacity: .75;
+  transform: translateX(-34%) rotate(8deg);
+  animation: mission-scan 5.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.mission-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(240, 202, 105, .18);
+  box-shadow: inset 0 0 34px rgba(240, 202, 105, .08), 0 0 36px rgba(89, 214, 201, .08);
+  animation: mission-frame 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
 .mission-panel__top,
 .mission-panel__note {
+  position: relative;
+  z-index: 1;
   padding: 24px;
 }
 
@@ -388,15 +415,32 @@ h3 {
 }
 
 .mission-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
 
 .mission-grid div {
+  position: relative;
   min-height: 150px;
   padding: 24px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  background: rgba(5, 5, 4, .1);
+  animation: mission-cell 4.8s ease-in-out infinite;
+}
+
+.mission-grid div:nth-child(2) {
+  animation-delay: .35s;
+}
+
+.mission-grid div:nth-child(3) {
+  animation-delay: .7s;
+}
+
+.mission-grid div:nth-child(4) {
+  animation-delay: 1.05s;
 }
 
 .mission-grid div:nth-child(2n) {
@@ -406,11 +450,21 @@ h3 {
 .mission-grid strong {
   display: block;
   margin-bottom: 12px;
-  color: #fff;
+  color: var(--gold-2);
   font-size: 48px;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 0 24px rgba(240, 202, 105, .2);
+  text-shadow: 0 0 24px rgba(240, 202, 105, .34), 0 0 44px rgba(89, 214, 201, .16);
+  transform-origin: left center;
+  animation: mission-number-glow 3.2s ease-in-out infinite;
+}
+
+.mission-panel.is-animating .mission-grid strong {
+  animation: mission-number-pop .7s ease both;
+}
+
+.mission-panel.is-ready .mission-grid strong {
+  animation: mission-number-glow 3.2s ease-in-out infinite;
 }
 
 .mission-grid span,
@@ -424,6 +478,60 @@ h3 {
   font-weight: 950;
   letter-spacing: .18em;
   text-transform: uppercase;
+}
+
+@keyframes mission-scan {
+  0%, 18% {
+    transform: translateX(-46%) rotate(8deg);
+    opacity: 0;
+  }
+  38%, 58% {
+    opacity: .78;
+  }
+  100% {
+    transform: translateX(42%) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes mission-frame {
+  0%, 100% {
+    border-color: rgba(240, 202, 105, .18);
+    box-shadow: inset 0 0 30px rgba(240, 202, 105, .07), 0 0 26px rgba(89, 214, 201, .06);
+  }
+  50% {
+    border-color: rgba(89, 214, 201, .38);
+    box-shadow: inset 0 0 44px rgba(240, 202, 105, .12), 0 0 42px rgba(89, 214, 201, .16);
+  }
+}
+
+@keyframes mission-cell {
+  0%, 100% {
+    background: rgba(5, 5, 4, .1);
+  }
+  50% {
+    background: rgba(240, 202, 105, .055);
+  }
+}
+
+@keyframes mission-number-pop {
+  0% {
+    opacity: .45;
+    transform: translateY(8px) scale(.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mission-number-glow {
+  0%, 100% {
+    text-shadow: 0 0 22px rgba(240, 202, 105, .32), 0 0 38px rgba(89, 214, 201, .12);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(240, 202, 105, .55), 0 0 54px rgba(89, 214, 201, .24);
+  }
 }
 
 .section {
@@ -633,7 +741,7 @@ h3 {
 
 .registry-layout {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: minmax(300px, .42fr) minmax(0, 1fr);
   gap: 34px;
   align-items: start;
 }
@@ -641,6 +749,9 @@ h3 {
 .registry-copy {
   position: sticky;
   top: 104px;
+  min-width: 0;
+  max-width: 520px;
+  z-index: 1;
 }
 
 .registry-copy .btn {
@@ -649,6 +760,7 @@ h3 {
 
 .registry-panel {
   overflow: hidden;
+  min-width: 0;
 }
 
 .registry-tools {
@@ -683,7 +795,7 @@ h3 {
 
 .registry-row {
   display: grid;
-  grid-template-columns: 1.2fr .75fr .85fr 1fr;
+  grid-template-columns: minmax(180px, 1.2fr) minmax(110px, .75fr) minmax(130px, .85fr) minmax(180px, 1fr);
   gap: 14px;
   padding: 16px 18px;
   border-bottom: 1px solid rgba(255,255,255,.08);
@@ -1242,6 +1354,17 @@ code {
 
   .tender-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1180px) {
+  .registry-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .registry-copy {
+    position: static;
+    max-width: 760px;
   }
 }
 
