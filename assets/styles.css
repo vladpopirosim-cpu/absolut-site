@@ -105,7 +105,7 @@ img {
   min-height: 78px;
   align-items: center;
   justify-content: space-between;
-  gap: 22px;
+  gap: 18px;
 }
 
 .brand {
@@ -144,11 +144,15 @@ img {
 
 .nav {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
-  gap: 22px;
+  justify-content: center;
+  min-width: 0;
+  gap: clamp(10px, 1.2vw, 22px);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .nav a {
@@ -179,6 +183,7 @@ img {
 
 .header-actions {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 10px;
 }
@@ -1457,6 +1462,21 @@ code {
 .editor-item__top strong {
   color: #fff;
   font-size: 18px;
+}
+
+@media (max-width: 1320px) {
+  .brand {
+    min-width: 210px;
+  }
+
+  .nav {
+    gap: 12px;
+    font-size: 12px;
+  }
+
+  .header-actions .btn--gold {
+    display: none;
+  }
 }
 
 @media (max-width: 1080px) {
