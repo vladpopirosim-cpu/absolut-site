@@ -167,8 +167,9 @@ function renderPartners() {
       const name = Array.isArray(partner) ? partner[0] : partner.name;
       const src = Array.isArray(partner) ? partner[1] : partner.logo;
       const text = Array.isArray(partner) ? partner[2] : partner.description;
+      const lightLogo = String(name || "").toLowerCase().includes("точно") || String(src || "").toLowerCase().includes("tochno");
       return `
-      <article class="partner-logo">
+      <article class="partner-logo ${lightLogo ? "partner-logo--light" : ""}">
         <img src="${src}" alt="${escapeHtml(name)}" loading="lazy">
         <div>
           <strong>${escapeHtml(name)}</strong>
@@ -226,6 +227,8 @@ function initRequestForm() {
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
     const message = String(data.get("message") || "").trim();
+    const formEmail = settings.formEmail || settings.primaryEmail || "absolut-23@mail.ru";
+    data.append("recipient", formEmail);
     const endpoint = settings.formEndpoint || "";
     if (endpoint) {
       fetch(endpoint, {
@@ -247,7 +250,7 @@ function initRequestForm() {
     const body = encodeURIComponent(
       `Имя: ${name}\nТелефон: ${phone}\nКомментарий: ${message}\n\nИсточник: сайт ООО АБСОЛЮТ`
     );
-    window.location.href = `mailto:${settings.primaryEmail || "absolut-23@mail.ru"}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${formEmail}?subject=${subject}&body=${body}`;
   });
 }
 

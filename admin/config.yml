@@ -29,6 +29,7 @@ collections:
               - { label: Телефон для ссылки, name: phoneHref, widget: string }
               - { label: Основная почта, name: primaryEmail, widget: string }
               - { label: Проектная почта, name: projectEmail, widget: string }
+              - { label: Почта для заявок, name: formEmail, widget: string }
               - { label: Endpoint формы, name: formEndpoint, widget: string, required: false }
               - { label: Адрес, name: address, widget: text }
               - label: Реквизиты

@@ -15,20 +15,8 @@
       "bik": "046015207",
       "bank": "ПАО «Банк Уралсиб»"
     },
-    "socials": [
-      {
-        "label": "Telegram",
-        "url": "#"
-      },
-      {
-        "label": "WhatsApp",
-        "url": "#"
-      },
-      {
-        "label": "VK",
-        "url": "#"
-      }
-    ]
+    "socials": [],
+    "formEmail": "vladik_gess@mail.ru"
   },
   "projects": [
     {

@@ -732,6 +732,14 @@ h3 {
   filter: grayscale(.15);
 }
 
+.partner-logo--light img {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, .28);
+  filter: none;
+}
+
 .partner-logo strong {
   display: block;
   margin-bottom: 5px;
@@ -807,10 +815,12 @@ h3 {
 .contact-heading strong {
   width: fit-content;
   max-width: 100%;
-  padding: 0 .08em;
-  background: linear-gradient(135deg, var(--gold-2), var(--gold));
-  color: #0f0c07;
+  background: linear-gradient(135deg, #fff 10%, var(--gold-2) 46%, #66d0b4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font: inherit;
+  text-shadow: 0 0 28px rgba(240, 202, 105, .24);
   overflow-wrap: normal;
   word-break: keep-all;
 }

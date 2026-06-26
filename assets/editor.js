@@ -66,6 +66,8 @@ function renderContacts() {
       ${field("Телефон для ссылки без пробелов", "settings.phoneHref", settings.phoneHref)}
       ${field("Основная почта", "settings.primaryEmail", settings.primaryEmail, "email")}
       ${field("Проектная почта", "settings.projectEmail", settings.projectEmail, "email")}
+      ${field("Почта для заявок", "settings.formEmail", settings.formEmail, "email")}
+      ${field("Endpoint формы", "settings.formEndpoint", settings.formEndpoint)}
       ${area("Адрес", "settings.address", settings.address)}
       ${field("ИНН", "settings.requisites.inn", settings.requisites?.inn)}
       ${field("КПП", "settings.requisites.kpp", settings.requisites?.kpp)}
