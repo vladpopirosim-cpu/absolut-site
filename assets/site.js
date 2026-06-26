@@ -38,8 +38,8 @@ function initNavigation() {
 function applySettings() {
   const company = settings.companyName || "ООО «АБСОЛЮТ»";
   const tagline = settings.tagline || "строительная компания";
-  const phoneDisplay = settings.phoneDisplay || "8 (800) 201-40-47";
-  const phoneHref = settings.phoneHref || "88002014047";
+  const phoneDisplay = settings.phoneDisplay || "+7 938 524 46 84";
+  const phoneHref = settings.phoneHref || "+79385244684";
   const primaryEmail = settings.primaryEmail || "absolut-23@mail.ru";
   const projectEmail = settings.projectEmail || "absolut-projekt@mail.ru";
   const address = settings.address || "";

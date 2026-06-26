@@ -2,8 +2,8 @@ window.ABSOLUT_CONTENT = {
   "settings": {
     "companyName": "ООО «АБСОЛЮТ»",
     "tagline": "строительная компания",
-    "phoneDisplay": "8 (800) 201-40-47",
-    "phoneHref": "88002014047",
+    "phoneDisplay": "+7 938 524 46 84",
+    "phoneHref": "+79385244684",
     "primaryEmail": "absolut-23@mail.ru",
     "projectEmail": "absolut-projekt@mail.ru",
     "formEndpoint": "https://formsubmit.co/ajax/vladik_gess@mail.ru",
@@ -211,7 +211,7 @@ window.ABSOLUT_CONTENT = {
     {
       "name": "ЖК «Первое место»",
       "place": "Краснодар",
-      "partner": "ГК «ТОЧНО»",
+      "partner": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Инженерные системы / СМР"
     },
     {
@@ -253,7 +253,7 @@ window.ABSOLUT_CONTENT = {
     {
       "name": "ЖК «Элегант»",
       "place": "Краснодар",
-      "partner": "ЮгСтройИмпериал",
+      "partner": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Жилой комплекс / соц. инфраструктура"
     },
     {
@@ -289,19 +289,19 @@ window.ABSOLUT_CONTENT = {
     {
       "name": "Поликлиника на 100 посещений",
       "place": "Краснодар, ЖК «Элегант»",
-      "partner": "ЮгСтройИмпериал",
+      "partner": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Здравоохранение"
     },
     {
       "name": "Фитнес-центр «BALANCE»",
       "place": "Краснодар, ЖК «Империал»",
-      "partner": "ЮгСтройИмпериал",
+      "partner": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Спорт / коммерция"
     },
     {
       "name": "Школа бокса",
       "place": "Краснодар, ЖК «Перемена»",
-      "partner": "ЮгСтройИмпериал",
+      "partner": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Спорт"
     }
   ],
