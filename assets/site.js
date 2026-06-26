@@ -221,6 +221,14 @@ function initRequestForm() {
   const form = document.querySelector("[data-request-form]");
   if (!form) return;
 
+  const readableFormMessage = (message, fallback) => {
+    const text = String(message || "");
+    if (/needs activation|activate form/i.test(text)) {
+      return "Форма подключена. Для первого запуска подтвердите письмо от FormSubmit на почте vladik_gess@mail.ru.";
+    }
+    return text || fallback;
+  };
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const button = form.querySelector("button[type='submit']");
@@ -266,11 +274,11 @@ function initRequestForm() {
             throw new Error(result.message || "Request failed");
           }
           form.reset();
-          status.textContent = result.message || "Заявка отправлена. Мы свяжемся с вами.";
+          status.textContent = readableFormMessage(result.message, "Заявка отправлена. Мы свяжемся с вами.");
           status.dataset.state = "success";
         })
         .catch((error) => {
-          status.textContent = error.message || "Не удалось отправить заявку. Позвоните или напишите нам на почту.";
+          status.textContent = readableFormMessage(error.message, "Не удалось отправить заявку. Позвоните или напишите нам на почту.");
           status.dataset.state = "error";
         })
         .finally(() => {
