@@ -223,26 +223,58 @@ function initRequestForm() {
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    const button = form.querySelector("button[type='submit']");
+    const status = form.querySelector("[data-form-status]") || document.createElement("p");
+    status.className = "form-status";
+    status.setAttribute("data-form-status", "");
+    if (!status.parentElement) form.append(status);
+
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
     const message = String(data.get("message") || "").trim();
     const formEmail = settings.formEmail || settings.primaryEmail || "absolut-23@mail.ru";
-    data.append("recipient", formEmail);
     const endpoint = settings.formEndpoint || "";
     if (endpoint) {
+      const payload = {
+        "Имя": name,
+        "Телефон": phone,
+        "Комментарий": message,
+        "Получатель": formEmail,
+        "Источник": window.location.href,
+        "_subject": "Заявка с сайта ООО АБСОЛЮТ",
+        "_template": "table",
+        "_captcha": "false"
+      };
+
+      if (button) button.disabled = true;
+      status.textContent = "Отправляем заявку...";
+      status.dataset.state = "loading";
+
       fetch(endpoint, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: data
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       })
-        .then((response) => {
+        .then(async (response) => {
+          const result = await response.json().catch(() => ({}));
           if (!response.ok) throw new Error("Request failed");
+          if (result.success === false || result.success === "false") {
+            throw new Error(result.message || "Request failed");
+          }
           form.reset();
-          alert("Заявка отправлена. Мы свяжемся с вами.");
+          status.textContent = result.message || "Заявка отправлена. Мы свяжемся с вами.";
+          status.dataset.state = "success";
         })
-        .catch(() => {
-          alert("Не удалось отправить заявку. Позвоните или напишите нам на почту.");
+        .catch((error) => {
+          status.textContent = error.message || "Не удалось отправить заявку. Позвоните или напишите нам на почту.";
+          status.dataset.state = "error";
+        })
+        .finally(() => {
+          if (button) button.disabled = false;
         });
       return;
     }
