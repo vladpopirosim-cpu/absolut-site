@@ -840,13 +840,15 @@ h3 {
 }
 
 .partner-matrix {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
 }
 
 .partner-logo {
   display: grid;
+  flex: 0 1 calc((100% - 48px) / 5);
   min-height: 190px;
   align-content: space-between;
   gap: 22px;
@@ -1490,10 +1492,13 @@ code {
 
   .capability-grid,
   .project-showcase,
-  .partner-matrix,
   .legal-grid,
   .social-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .partner-logo {
+    flex-basis: calc((100% - 12px) / 2);
   }
 
   .tender-grid {
@@ -1545,12 +1550,15 @@ code {
   .mission-grid,
   .capability-grid,
   .project-showcase,
-  .partner-matrix,
   .tender-grid,
   .legal-grid,
   .material-logo-grid,
   .social-grid {
     grid-template-columns: 1fr;
+  }
+
+  .partner-logo {
+    flex-basis: 100%;
   }
 
   .legal-card--main,
