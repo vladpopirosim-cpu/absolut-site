@@ -1085,6 +1085,10 @@ h3 {
   align-items: start;
 }
 
+.contact-command > div:first-child {
+  container-type: inline-size;
+}
+
 .contact-pills {
   display: flex;
   flex-wrap: wrap;
@@ -1115,6 +1119,17 @@ h3 {
   text-shadow: 0 0 28px rgba(240, 202, 105, .24);
   overflow-wrap: normal;
   word-break: keep-all;
+  white-space: nowrap;
+}
+
+@container (max-width: 620px) {
+  .contact-heading {
+    font-size: clamp(42px, 13cqw, 76px);
+  }
+
+  .contact-heading strong {
+    font-size: clamp(30px, 9.2cqw, 52px);
+  }
 }
 
 .contact-pills a {
