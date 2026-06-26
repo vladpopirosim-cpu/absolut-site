@@ -388,6 +388,9 @@ function initRequestForm() {
     if (/failed to fetch|networkerror|load failed/i.test(text)) {
       return "Не удалось отправить заявку: соединение с формой не установлено. Попробуйте еще раз или напишите нам на почту.";
     }
+    if (/submitted successfully/i.test(text)) {
+      return "Заявка направлена";
+    }
     return text || fallback;
   };
 
@@ -486,7 +489,7 @@ function initRequestForm() {
             throw new Error(result.message || "Request failed");
           }
           form.reset();
-          status.textContent = readableFormMessage(result.message, "Заявка отправлена. Мы свяжемся с вами.");
+          status.textContent = readableFormMessage(result.message, "Заявка направлена");
           status.dataset.state = "success";
         })
         .catch((error) => {

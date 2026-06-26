@@ -581,6 +581,8 @@ h3 {
 
 .capability-card,
 .tender-card,
+.legal-card,
+.material-group,
 .registry-panel,
 .request-form {
   border: 1px solid var(--line);
@@ -839,7 +841,7 @@ h3 {
 
 .partner-matrix {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -885,6 +887,127 @@ h3 {
 .partner-logo span {
   color: var(--muted);
   font-size: 13px;
+}
+
+.materials-layout {
+  display: grid;
+  grid-template-columns: .9fr 1.35fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.material-group {
+  padding: 26px;
+}
+
+.material-group--feature {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;
+  background:
+    linear-gradient(135deg, rgba(240,202,105,.12), transparent 54%),
+    var(--panel);
+}
+
+.material-group h3 {
+  margin: 14px 0 24px;
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: .98;
+}
+
+.material-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.material-tags a,
+.material-tags span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-weight: 900;
+}
+
+.material-tags a:hover {
+  border-color: rgba(240,202,105,.55);
+  color: var(--gold-2);
+}
+
+.material-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.material-logo {
+  display: grid;
+  min-height: 118px;
+  place-items: center;
+  padding: 18px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.material-logo--dark {
+  background: #111;
+}
+
+.material-logo img {
+  max-width: 100%;
+  max-height: 70px;
+  object-fit: contain;
+}
+
+.legal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.legal-card {
+  min-height: 150px;
+  padding: 24px;
+}
+
+.legal-card--main,
+.legal-card--wide {
+  grid-column: span 2;
+}
+
+.legal-card--main {
+  background:
+    linear-gradient(135deg, rgba(240,202,105,.14), transparent 58%),
+    var(--panel);
+}
+
+.legal-card strong {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--gold-2);
+  font-size: 13px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.legal-card span {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.legal-card p {
+  color: var(--muted);
 }
 
 .tender-grid {
@@ -1347,6 +1470,7 @@ code {
   .hero__command,
   .trust-strip,
   .registry-layout,
+  .materials-layout,
   .contact-command,
   .editor-layout {
     grid-template-columns: 1fr;
@@ -1366,6 +1490,7 @@ code {
   .capability-grid,
   .project-showcase,
   .partner-matrix,
+  .legal-grid,
   .social-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1411,8 +1536,19 @@ code {
   .project-showcase,
   .partner-matrix,
   .tender-grid,
+  .legal-grid,
+  .material-logo-grid,
   .social-grid {
     grid-template-columns: 1fr;
+  }
+
+  .legal-card--main,
+  .legal-card--wide {
+    grid-column: auto;
+  }
+
+  .material-group--feature {
+    min-height: 300px;
   }
 
   .section {

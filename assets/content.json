@@ -7,13 +7,17 @@
     "primaryEmail": "absolut-23@mail.ru",
     "projectEmail": "absolut-projekt@mail.ru",
     "formEndpoint": "https://formsubmit.co/ajax/vladik_gess@mail.ru",
-    "address": "350018, г. Краснодар, ул. Текстильная, 9Б, офис 3",
+    "address": "350059, г. Краснодар, ул. Текстильная, 9Б, офис 3",
     "requisites": {
       "inn": "2312298996",
       "kpp": "231201001",
+      "ogrn": "1212300011593",
+      "okpo": "47485884",
       "account": "40702810526190002987",
+      "correspondentAccount": "30101810500000000207",
       "bik": "046015207",
-      "bank": "ПАО «Банк Уралсиб»"
+      "bank": "ФИЛИАЛ «РОСТОВСКИЙ» АО «АЛЬФА-БАНК» г. Ростов-на-Дону",
+      "okved": "43.22 Производство санитарно-технических работ, монтаж отопительных систем и систем вентиляции и кондиционирования воздуха"
     },
     "socials": [],
     "formEmail": "vladik_gess@mail.ru"
