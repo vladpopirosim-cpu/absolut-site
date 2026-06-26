@@ -373,8 +373,8 @@ h3 {
   position: absolute;
   inset: -40%;
   background:
-    linear-gradient(115deg, transparent 34%, rgba(240, 202, 105, .2) 45%, rgba(89, 214, 201, .16) 52%, transparent 64%);
-  opacity: .75;
+    linear-gradient(115deg, transparent 36%, rgba(240, 202, 105, .1) 46%, rgba(89, 214, 201, .07) 53%, transparent 64%);
+  opacity: .42;
   transform: translateX(-34%) rotate(8deg);
   animation: mission-scan 5.8s ease-in-out infinite;
   pointer-events: none;
@@ -473,7 +473,7 @@ h3 {
 }
 
 .mission-panel__note span {
-  color: var(--teal);
+  color: #e9c86f;
   font-size: 12px;
   font-weight: 950;
   letter-spacing: .18em;
@@ -486,7 +486,7 @@ h3 {
     opacity: 0;
   }
   38%, 58% {
-    opacity: .78;
+    opacity: .48;
   }
   100% {
     transform: translateX(42%) rotate(8deg);
