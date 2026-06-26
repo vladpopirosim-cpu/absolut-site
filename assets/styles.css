@@ -409,6 +409,8 @@ h3 {
   color: #fff;
   font-size: 48px;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 24px rgba(240, 202, 105, .2);
 }
 
 .mission-grid span,
@@ -783,6 +785,36 @@ h3 {
   overflow-wrap: anywhere;
 }
 
+.tender-card small {
+  display: block;
+  margin-top: 14px;
+  color: var(--muted-2);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tender-card--copy {
+  cursor: pointer;
+  position: relative;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.tender-card--copy:hover,
+.tender-card--copy:focus-visible {
+  border-color: rgba(240, 202, 105, .48);
+  background: var(--panel-strong);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.tender-card--copy.is-copied {
+  border-color: rgba(168, 243, 216, .5);
+}
+
+.tender-card--copy.is-copied small {
+  color: #a8f3d8;
+}
+
 .section--contact {
   background: linear-gradient(180deg, rgba(214,166,61,.08), rgba(8,8,6,0));
 }
@@ -887,6 +919,12 @@ textarea {
 input:focus,
 textarea:focus {
   border-color: rgba(240,202,105,.7);
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #ff9f8c;
+  box-shadow: 0 0 0 3px rgba(255, 159, 140, .14);
 }
 
 .site-footer {

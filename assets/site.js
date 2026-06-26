@@ -97,6 +97,124 @@ function initSpotlight() {
   });
 }
 
+function initMissionCounters() {
+  const counters = [...document.querySelectorAll("[data-count-to]")];
+  if (!counters.length) return;
+
+  const setValue = (node, value) => {
+    node.textContent = `${value}${node.dataset.countSuffix || ""}`;
+  };
+
+  const finish = () => counters.forEach((node) => setValue(node, Number(node.dataset.countTo || 0)));
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    finish();
+    return;
+  }
+
+  const animate = () => {
+    const duration = 1100;
+    const startedAt = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counters.forEach((node) => {
+        const target = Number(node.dataset.countTo || 0);
+        setValue(node, Math.round(target * eased));
+      });
+      if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+  };
+
+  if (!("IntersectionObserver" in window)) {
+    animate();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return;
+    observer.disconnect();
+    animate();
+  }, { threshold: 0.35 });
+
+  observer.observe(counters[0].closest(".mission-panel") || counters[0]);
+}
+
+function initCopyCards() {
+  const cards = [...document.querySelectorAll("[data-copy-value]")];
+  if (!cards.length) return;
+
+  const writeClipboard = async (value) => {
+    let clipboardError = null;
+    if (navigator.clipboard?.writeText && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return;
+      } catch (error) {
+        clipboardError = error;
+      }
+    }
+
+    const textarea = document.createElement("textarea");
+    textarea.value = value;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.top = "0";
+    textarea.style.left = "-9999px";
+    document.body.append(textarea);
+    const selection = document.getSelection();
+    const range = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null;
+    textarea.focus();
+    textarea.select();
+    textarea.setSelectionRange(0, value.length);
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    if (range && selection) {
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+    if (!copied) throw clipboardError || new Error("Copy failed");
+  };
+
+  const showCopied = (card, text = "Скопировано") => {
+    const label = card.querySelector("small");
+    if (!label) return;
+    const previous = label.dataset.defaultText || label.textContent;
+    label.dataset.defaultText = previous;
+    label.textContent = text;
+    card.classList.add("is-copied");
+    window.clearTimeout(card._copyTimer);
+    card._copyTimer = window.setTimeout(() => {
+      label.textContent = previous;
+      card.classList.remove("is-copied");
+    }, 1400);
+  };
+
+  const copy = async (card) => {
+    const value = card.dataset.copyValue || "";
+    if (!value) return;
+
+    try {
+      await writeClipboard(value);
+      showCopied(card);
+    } catch (error) {
+      showCopied(card, "Не удалось скопировать");
+    }
+  };
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => copy(card));
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      copy(card);
+    });
+  });
+}
+
 let activeProjectFilter = "all";
 
 function projectCard(project, index) {
@@ -221,26 +339,85 @@ function initRequestForm() {
   const form = document.querySelector("[data-request-form]");
   if (!form) return;
 
+  const fields = {
+    name: form.querySelector("[name='name']"),
+    phone: form.querySelector("[name='phone']"),
+    message: form.querySelector("[name='message']")
+  };
+
   const readableFormMessage = (message, fallback) => {
     const text = String(message || "");
     if (/needs activation|activate form/i.test(text)) {
-      return "Форма подключена. Для первого запуска подтвердите письмо от FormSubmit на почте vladik_gess@mail.ru.";
+      return "Форма почти готова к приему заявок. Если сообщение не отправилось, напишите нам на рабочую почту или позвоните.";
+    }
+    if (/failed to fetch|networkerror|load failed/i.test(text)) {
+      return "Не удалось отправить заявку: соединение с формой не установлено. Попробуйте еще раз или напишите нам на почту.";
     }
     return text || fallback;
+  };
+
+  const getStatus = () => {
+    const status = form.querySelector("[data-form-status]") || document.createElement("p");
+    status.className = "form-status";
+    status.setAttribute("data-form-status", "");
+    if (!status.parentElement) form.append(status);
+    return status;
+  };
+
+  const markInvalid = (fieldName) => {
+    Object.values(fields).forEach((field) => field?.removeAttribute("aria-invalid"));
+    fields[fieldName]?.setAttribute("aria-invalid", "true");
+    fields[fieldName]?.focus();
+  };
+
+  const clearInvalid = () => {
+    Object.values(fields).forEach((field) => field?.removeAttribute("aria-invalid"));
+  };
+
+  const validateRequest = ({ name, phone, message }) => {
+    if (name.length < 2) {
+      return {
+        field: "name",
+        message: "Проверьте поле «Имя»: укажите имя или название компании, минимум 2 символа."
+      };
+    }
+
+    const digits = phone.replace(/\D/g, "");
+    if (/[A-Za-zА-Яа-яЁё]/.test(phone) || digits.length < 10 || digits.length > 15) {
+      return {
+        field: "phone",
+        message: "Проверьте поле «Телефон»: укажите номер, например +7 900 000-00-00."
+      };
+    }
+
+    if (message.length > 1200) {
+      return {
+        field: "message",
+        message: "Проверьте поле «Комментарий»: сократите текст до 1200 символов."
+      };
+    }
+
+    return null;
   };
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const button = form.querySelector("button[type='submit']");
-    const status = form.querySelector("[data-form-status]") || document.createElement("p");
-    status.className = "form-status";
-    status.setAttribute("data-form-status", "");
-    if (!status.parentElement) form.append(status);
+    const status = getStatus();
 
     const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
     const message = String(data.get("message") || "").trim();
+    const validationError = validateRequest({ name, phone, message });
+    if (validationError) {
+      markInvalid(validationError.field);
+      status.textContent = validationError.message;
+      status.dataset.state = "error";
+      return;
+    }
+    clearInvalid();
+
     const formEmail = settings.formEmail || settings.primaryEmail || "absolut-23@mail.ru";
     const endpoint = settings.formEndpoint || "";
     if (endpoint) {
@@ -300,6 +477,8 @@ async function bootstrap() {
   initNavigation();
   initScrollProgress();
   initSpotlight();
+  initMissionCounters();
+  initCopyCards();
   initProjectFilters();
   renderProjects();
   renderSocialProjects();
