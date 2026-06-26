@@ -108,27 +108,23 @@ function initMissionCounters() {
   const finish = () => counters.forEach((node) => setValue(node, Number(node.dataset.countTo || 0)));
   const panel = counters[0].closest(".mission-panel");
 
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    finish();
-    panel?.classList.add("is-ready");
-    return;
-  }
-
   const animate = () => {
     panel?.classList.add("is-animating");
-    const duration = 2200;
+    counters.forEach((node) => setValue(node, 0));
+    const counterDuration = 2600;
+    const counterDelay = 280;
+    const totalDuration = counterDuration + counterDelay * (counters.length - 1);
     const startedAt = performance.now();
 
     const step = (now) => {
-      const progress = Math.min((now - startedAt) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const elapsed = now - startedAt;
       counters.forEach((node, index) => {
         const target = Number(node.dataset.countTo || 0);
-        const localProgress = Math.min(Math.max((progress - index * 0.08) / 0.76, 0), 1);
+        const localProgress = Math.min(Math.max((elapsed - index * counterDelay) / counterDuration, 0), 1);
         const localEased = 1 - Math.pow(1 - localProgress, 3);
         setValue(node, Math.round(target * localEased));
       });
-      if (progress < 1) {
+      if (elapsed < totalDuration) {
         requestAnimationFrame(step);
       } else {
         finish();
@@ -137,7 +133,7 @@ function initMissionCounters() {
       }
     };
 
-    requestAnimationFrame(step);
+    window.setTimeout(() => requestAnimationFrame(step), 450);
   };
 
   if (!("IntersectionObserver" in window)) {
@@ -231,7 +227,7 @@ let activeProjectFilter = "all";
 function projectCard(project, index) {
   const facts = (project.facts || []).map((fact) => `<li>${escapeHtml(fact)}</li>`).join("");
   return `
-    <article class="project-card ${index === 0 ? "project-card--wide" : ""}" data-category="${escapeHtml(project.category)}">
+    <article class="project-card" data-category="${escapeHtml(project.category)}">
       <a class="project-card__image" href="projects.html" aria-label="${escapeHtml(project.title)}">
         <img src="${project.image}" alt="${escapeHtml(project.title)}" loading="lazy">
       </a>
@@ -356,6 +352,33 @@ function initRequestForm() {
     message: form.querySelector("[name='message']")
   };
 
+  const formatPhone = (value) => {
+    const raw = String(value || "").trimStart();
+    const startsWithPlus = raw.startsWith("+");
+    const rawDigits = raw.replace(/\D/g, "");
+    const digits = startsWithPlus
+      ? (rawDigits.startsWith("7") ? rawDigits.slice(0, 11) : "")
+      : (rawDigits.startsWith("8") ? rawDigits.slice(0, 11) : "");
+
+    if (!digits) return startsWithPlus ? "+" : "";
+
+    const groups = startsWithPlus
+      ? [`+${digits.slice(0, 1)}${digits.slice(1, 4)}`, digits.slice(4, 7), digits.slice(7, 9), digits.slice(9, 11)]
+      : [digits.slice(0, 4), digits.slice(4, 7), digits.slice(7, 9), digits.slice(9, 11)];
+
+    return groups.filter(Boolean).join(" ").slice(0, 15);
+  };
+
+  if (fields.phone) {
+    fields.phone.setAttribute("maxlength", "15");
+    fields.phone.setAttribute("inputmode", "tel");
+    fields.phone.setAttribute("placeholder", "+7900 000 00 00");
+    fields.phone.addEventListener("input", () => {
+      fields.phone.value = formatPhone(fields.phone.value);
+      fields.phone.removeAttribute("aria-invalid");
+    });
+  }
+
   const readableFormMessage = (message, fallback) => {
     const text = String(message || "");
     if (/needs activation|activate form/i.test(text)) {
@@ -393,11 +416,11 @@ function initRequestForm() {
       };
     }
 
-    const digits = phone.replace(/\D/g, "");
-    if (/[A-Za-zА-Яа-яЁё]/.test(phone) || digits.length < 10 || digits.length > 15) {
+    const compactPhone = phone.replace(/\s/g, "");
+    if (!/^(?:\+7|8)\d{10}$/.test(compactPhone)) {
       return {
         field: "phone",
-        message: "Проверьте поле «Телефон»: укажите номер, например +7 900 000-00-00."
+        message: "Проверьте поле «Телефон»: формат должен быть +7900 000 00 00 или 8900 000 00 00."
       };
     }
 

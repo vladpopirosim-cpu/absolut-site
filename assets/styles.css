@@ -639,22 +639,18 @@ h3 {
 
 .project-showcase {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   gap: 18px;
 }
 
 .project-card {
   position: relative;
-  min-height: 560px;
+  min-height: 500px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,.14);
   border-radius: var(--radius);
   background: #12110f;
   box-shadow: var(--shadow);
-}
-
-.project-card--wide {
-  grid-column: span 2;
 }
 
 .project-card__image {
@@ -717,7 +713,7 @@ h3 {
 .project-card h3 {
   max-width: 620px;
   color: #fff;
-  font-size: clamp(26px, 3vw, 44px);
+  font-size: clamp(23px, 2.2vw, 34px);
 }
 
 .project-card ul {
@@ -741,21 +737,47 @@ h3 {
 
 .registry-layout {
   display: grid;
-  grid-template-columns: minmax(300px, .42fr) minmax(0, 1fr);
-  gap: 34px;
+  grid-template-columns: 1fr;
+  gap: 24px;
   align-items: start;
 }
 
 .registry-copy {
-  position: sticky;
-  top: 104px;
+  position: relative;
+  top: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px 28px;
+  align-items: end;
   min-width: 0;
-  max-width: 520px;
+  max-width: none;
+  padding: 0 0 22px;
   z-index: 1;
 }
 
+.registry-copy::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(240, 202, 105, .62), rgba(89, 214, 201, .22), transparent);
+}
+
+.registry-copy h2 {
+  max-width: 760px;
+}
+
+.registry-copy p {
+  max-width: 780px;
+}
+
 .registry-copy .btn {
-  margin-top: 18px;
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  margin-top: 0;
+  white-space: nowrap;
 }
 
 .registry-panel {
@@ -1348,23 +1370,8 @@ code {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .project-card--wide {
-    grid-column: span 1;
-  }
-
   .tender-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 1180px) {
-  .registry-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .registry-copy {
-    position: static;
-    max-width: 760px;
   }
 }
 
@@ -1418,7 +1425,17 @@ code {
   }
 
   .project-card {
-    min-height: 520px;
+    min-height: 470px;
+  }
+
+  .registry-copy {
+    grid-template-columns: 1fr;
+  }
+
+  .registry-copy .btn {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: start;
   }
 
   .registry-tools {

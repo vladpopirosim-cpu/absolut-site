@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ООО «АБСОЛЮТ» - строительство, инженерные системы, генподряд</title>
-  <meta name="description" content="ООО «АБСОЛЮТ»: строительная компания полного цикла. Портфолио объектов, партнеры, реквизиты, обратная связь для заказчиков и тендеров.">
+  <meta name="description" content="ООО «АБСОЛЮТ»: строительная компания полного цикла. Проекты, партнеры, реквизиты, обратная связь для заказчиков и тендеров.">
   <link rel="icon" href="assets/logo.png">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -108,8 +108,8 @@
         <div class="container">
           <div class="section__head">
             <div>
-              <span class="eyebrow">визуальное портфолио</span>
-              <h2>Портфолио объектов ООО «АБСОЛЮТ»</h2>
+              <span class="eyebrow">ключевые объекты</span>
+              <h2>Проекты ООО «АБСОЛЮТ»</h2>
             </div>
             <div class="filter-bar" data-project-filters>
               <button class="is-active" type="button" data-filter="all">Все</button>
@@ -175,7 +175,7 @@
           </div>
           <form class="request-form" data-request-form>
             <label>Имя<input name="name" autocomplete="name" required></label>
-            <label>Телефон<input name="phone" autocomplete="tel" required></label>
+            <label>Телефон<input name="phone" autocomplete="tel" inputmode="tel" maxlength="15" placeholder="+7900 000 00 00" pattern="(?:\+7|8)\d{3} \d{3} \d{2} \d{2}" required></label>
             <label>Комментарий<textarea name="message" placeholder="Например: нужен подрядчик на инженерные системы"></textarea></label>
             <button class="btn btn--gold" type="submit">Отправить заявку</button>
           </form>
