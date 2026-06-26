@@ -292,7 +292,8 @@ function renderPartners() {
       const name = Array.isArray(partner) ? partner[0] : partner.name;
       const src = Array.isArray(partner) ? partner[1] : partner.logo;
       const text = Array.isArray(partner) ? partner[2] : partner.description;
-      const lightLogo = String(name || "").toLowerCase().includes("точно") || String(src || "").toLowerCase().includes("tochno");
+      const lightLogo = ["точно", "екатеринодар"].some((value) => String(name || "").toLowerCase().includes(value))
+        || /tochno|ekaterinodar/i.test(String(src || ""));
       return `
       <article class="partner-logo ${lightLogo ? "partner-logo--light" : ""}">
         <img src="${src}" alt="${escapeHtml(name)}" loading="lazy">
