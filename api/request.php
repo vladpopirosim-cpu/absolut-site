@@ -58,30 +58,49 @@ if ($lastSent > 0 && time() - $lastSent < 30) {
     respond(429, false, 'Заявка уже отправляется. Подождите 30 секунд перед повторной отправкой.');
 }
 
-$recipient = 'absolut-projekt@mail.ru';
-$subject = 'Заявка с сайта ООО «АБСОЛЮТ»';
 $safeSource = filter_var($source, FILTER_VALIDATE_URL) ? $source : 'absolutkuban.ru';
-$body = implode("\r\n", [
-    'Новая заявка с сайта absolutkuban.ru',
-    '',
-    'Имя: ' . $name,
-    'Телефон: ' . $phone,
-    'Комментарий: ' . ($message !== '' ? $message : 'не указан'),
-    'Страница: ' . $safeSource,
-    'Дата: ' . date('d.m.Y H:i:s'),
+$relayPayload = json_encode([
+    'Имя' => $name,
+    'Телефон' => $phone,
+    'Комментарий' => $message !== '' ? $message : 'не указан',
+    'Источник' => $safeSource,
+    '_subject' => 'Заявка с сайта ООО АБСОЛЮТ',
+    '_template' => 'table',
+    '_captcha' => 'false',
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+if ($relayPayload === false || !function_exists('curl_init')) {
+    respond(500, false, 'Сервис отправки временно недоступен. Позвоните нам или напишите на рабочую почту.');
+}
+
+$curl = curl_init('https://formsubmit.co/ajax/absolut-projekt@mail.ru');
+curl_setopt_array($curl, [
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $relayPayload,
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_CONNECTTIMEOUT => 5,
+    CURLOPT_TIMEOUT => 15,
+    CURLOPT_HTTPHEADER => [
+        'Accept: application/json',
+        'Content-Type: application/json',
+        'Origin: https://absolutkuban.ru',
+        'Referer: https://absolutkuban.ru/',
+    ],
 ]);
 
-$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$headers = implode("\r\n", [
-    'From: ООО АБСОЛЮТ <website@absolutkuban.ru>',
-    'Reply-To: absolut-projekt@mail.ru',
-    'Content-Type: text/plain; charset=UTF-8',
-    'MIME-Version: 1.0',
-    'X-Mailer: Absolut Website',
-]);
+$relayResponse = curl_exec($curl);
+$relayStatus = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
+curl_close($curl);
+$relayResult = is_string($relayResponse) ? json_decode($relayResponse, true) : null;
 
-if (!mail($recipient, $encodedSubject, $body, $headers)) {
-    respond(500, false, 'Не удалось отправить заявку. Позвоните нам или напишите на рабочую почту.');
+if (
+    $relayStatus < 200 ||
+    $relayStatus >= 300 ||
+    !is_array($relayResult) ||
+    ($relayResult['success'] ?? false) === false ||
+    ($relayResult['success'] ?? '') === 'false'
+) {
+    respond(502, false, 'Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на рабочую почту.');
 }
 
 @file_put_contents($rateFile, (string) time(), LOCK_EX);

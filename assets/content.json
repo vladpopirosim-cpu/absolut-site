@@ -6,7 +6,7 @@
     "phoneHref": "+79385244684",
     "primaryEmail": "absolut-23@mail.ru",
     "projectEmail": "absolut-projekt@mail.ru",
-    "formEndpoint": "https://formsubmit.co/ajax/absolut-projekt@mail.ru",
+    "formEndpoint": "/api/request.php",
     "address": "350059, г. Краснодар, ул. Текстильная, 9Б, офис 3",
     "requisites": {
       "inn": "2312298996",
