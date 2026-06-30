@@ -58,7 +58,7 @@ if ($lastSent > 0 && time() - $lastSent < 30) {
     respond(429, false, 'Заявка уже отправляется. Подождите 30 секунд перед повторной отправкой.');
 }
 
-$recipient = 'vladik_gess@mail.ru';
+$recipient = 'absolut-projekt@mail.ru';
 $subject = 'Заявка с сайта ООО «АБСОЛЮТ»';
 $safeSource = filter_var($source, FILTER_VALIDATE_URL) ? $source : 'absolutkuban.ru';
 $body = implode("\r\n", [
