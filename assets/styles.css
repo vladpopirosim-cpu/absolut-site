@@ -596,6 +596,15 @@ h3 {
   backdrop-filter: blur(14px);
 }
 
+.form-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .capability-card {
   min-height: 260px;
   padding: 28px;

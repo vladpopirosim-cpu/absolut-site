@@ -460,14 +460,11 @@ function initRequestForm() {
     const endpoint = settings.formEndpoint || "";
     if (endpoint) {
       const payload = {
-        "Имя": name,
-        "Телефон": phone,
-        "Комментарий": message,
-        "Получатель": formEmail,
-        "Источник": window.location.href,
-        "_subject": "Заявка с сайта ООО АБСОЛЮТ",
-        "_template": "table",
-        "_captcha": "false"
+        name,
+        phone,
+        message,
+        website: String(data.get("website") || ""),
+        source: window.location.href
       };
 
       if (button) button.disabled = true;
@@ -484,9 +481,8 @@ function initRequestForm() {
       })
         .then(async (response) => {
           const result = await response.json().catch(() => ({}));
-          if (!response.ok) throw new Error("Request failed");
-          if (result.success === false || result.success === "false") {
-            throw new Error(result.message || "Request failed");
+          if (!response.ok || result.success === false || result.success === "false") {
+            throw new Error(result.message || "Не удалось отправить заявку. Попробуйте ещё раз.");
           }
           form.reset();
           status.textContent = readableFormMessage(result.message, "Заявка направлена");
