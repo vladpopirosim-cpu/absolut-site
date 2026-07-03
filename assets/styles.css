@@ -998,6 +998,10 @@ h3 {
   background: #111;
 }
 
+.supplier-card__logo--black-mark img {
+  filter: brightness(0);
+}
+
 .supplier-card__logo--cover {
   padding: 0;
   overflow: hidden;
