@@ -547,13 +547,11 @@ function initMaterialCatalog() {
     return `
       <${tag} class="supplier-card${item.website ? " supplier-card--linked" : ""}"${linkAttributes} data-material-card data-categories="${escapeHtml(item.categories.join(" "))}" data-search="${escapeHtml(searchValue(item))}">
         <div class="supplier-card__logo${blackMark}">
-          <span class="supplier-card__rank">№${item.rank}</span>
           ${logo}
         </div>
         <div class="supplier-card__body">
-          <div class="supplier-card__title"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.revenueYear || "")}</small></div>
+          <strong>${escapeHtml(item.name)}</strong>
           <span title="${escapeHtml(description)}">${escapeHtml(description)}</span>
-          <small class="supplier-card__revenue">Выручка: ${escapeHtml(item.revenue || "не раскрыта")}</small>
         </div>
       </${tag}>
     `;

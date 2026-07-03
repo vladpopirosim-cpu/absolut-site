@@ -1037,9 +1037,9 @@ h3 {
 
 .supplier-card {
   display: grid;
-  grid-template-rows: 104px 1fr;
+  grid-template-rows: 112px 1fr;
   min-width: 0;
-  height: 244px;
+  height: 220px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1075,21 +1075,6 @@ h3 {
   padding: 18px;
   background: #fff;
   position: relative;
-}
-
-.supplier-card__rank {
-  display: grid;
-  width: 34px;
-  height: 28px;
-  place-items: center;
-  border-radius: var(--radius);
-  background: #151512;
-  color: var(--gold-2);
-  font-size: 11px;
-  font-weight: 950;
-  left: 8px;
-  position: absolute;
-  top: 8px;
 }
 
 .supplier-card__logo--dark {
@@ -1139,27 +1124,13 @@ h3 {
   min-width: 0;
   padding: 16px;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 10px;
 }
 
 .supplier-card__body strong {
   overflow-wrap: anywhere;
   font-size: 16px;
-}
-
-.supplier-card__title {
-  display: flex;
-  min-width: 0;
-  gap: 8px;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.supplier-card__title small {
-  color: var(--muted);
-  font-size: 10px;
-  white-space: nowrap;
 }
 
 .supplier-card__body span {
@@ -1172,12 +1143,6 @@ h3 {
   -webkit-line-clamp: 2;
 }
 
-.supplier-card__revenue {
-  color: var(--gold-2);
-  font-size: 11px;
-  font-weight: 850;
-}
-
 .material-empty {
   margin-top: 18px;
   padding: 28px;
@@ -1185,14 +1150,6 @@ h3 {
   border-radius: var(--radius);
   color: var(--muted);
   text-align: center;
-}
-
-.material-ranking-note {
-  max-width: 880px;
-  margin: 16px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.55;
 }
 
 .material-registry {

@@ -106,7 +106,7 @@
   add("construction", "Общестроительные и отделочные материалы", ["Alta Construction", "CHERBROOKE"]);
 
   const logoByName = {
-    "ВЕЗА": null,
+    "ВЕЗА": "assets/materials/veza.svg",
     "Завод Вентилятор": null,
     "VENTZ": "assets/materials/ventz.png",
     "Завод ЮгВентКом": "assets/materials/yugventkom.svg",
@@ -124,6 +124,13 @@
     "Aquasfera": "assets/materials/aquasfera.png",
     "BENARMO": "assets/materials/benarmo.png",
     "OGINT": "assets/materials/ogint.png",
+    "Ридан (Danfoss)": "assets/materials/danfoss.svg",
+    "HENCO": "assets/materials/henco.png",
+    "Rehau": "assets/materials/rehau.svg",
+    "Wilo": "assets/materials/wilo.svg",
+    "EVRA": "assets/materials/evra.png",
+    "РАШВОРК": "assets/materials/rashwork.png",
+    "СИНИКОН": "assets/materials/sinikon.png",
     "POC": "assets/materials/poc.png",
     "Selena": "assets/materials/selena.png",
     "FITTEX Plus": "assets/materials/fittex-plus.png",
@@ -144,6 +151,9 @@
     "Vaillant": "https://www.vaillant.com/",
     "Rehau": "https://www.rehau.com/",
     "Wilo": "https://wilo.com/",
+    "HENCO": "https://www.henco.be/en/home",
+    "EVRA": "https://evra.su/",
+    "РАШВОРК": "https://www.rushwork.ru/",
     "BAXI": "https://www.baxi.com/",
     "Сантехкомплект": "https://www.santech.ru/",
     "OGINT": "https://ogint.ru/",
@@ -193,22 +203,9 @@
     "Renga": "https://rengabim.com/"
   };
 
-  const topCompanyData = {
-    "Bosch": { rank: 1, revenue: "€91,0 млрд", revenueYear: "2025" },
-    "Midea": { rank: 2, revenue: "около €54,8 млрд", revenueYear: "2025" },
-    "LG": { rank: 3, revenue: "₩89,2 трлн", revenueYear: "2025" },
-    "Daikin": { rank: 4, revenue: "¥5,015 трлн", revenueYear: "FY2025" },
-    "Electrolux": { rank: 5, revenue: "SEK 131,3 млрд", revenueYear: "2025" },
-    "Ридан (Danfoss)": { rank: 6, revenue: "€9,4 млрд", revenueYear: "2025" },
-    "Vaillant": { rank: 7, revenue: "€3,8 млрд", revenueYear: "2023" },
-    "Rehau": { rank: 8, revenue: "около €3 млрд", revenueYear: "публичные данные" },
-    "Wilo": { rank: 9, revenue: "€1,919 млрд", revenueYear: "2025" },
-    "BAXI": { rank: 10, revenue: "€1,9 млрд", revenueYear: "BDR Thermea, 2025" }
-  };
-
   const featuredOrder = [
-    "Bosch", "Midea", "LG", "Daikin", "Electrolux", "Ридан (Danfoss)",
-    "Vaillant", "Rehau", "Wilo", "BAXI"
+    "Ридан (Danfoss)", "Rehau", "HENCO", "Wilo", "РАШВОРК",
+    "EVRA", "ВЕЗА", "СИНИКОН", "BENARMO", "FORTECA"
   ];
 
   const wordmarkSize = {
@@ -235,8 +232,7 @@
       ...item,
       logo: logoByName[name] || null,
       website: websiteByName[name] || null,
-      wordmarkSize: wordmarkSize[name] || "",
-      ...(topCompanyData[name] || {})
+      wordmarkSize: wordmarkSize[name] || ""
     } : null;
   }).filter(Boolean);
 
