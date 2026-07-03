@@ -505,25 +505,193 @@ function initRequestForm() {
   });
 }
 
-function initMaterialFilters() {
-  const root = document.querySelector("[data-material-filter]");
-  const cards = Array.from(document.querySelectorAll("[data-material-category]"));
-  if (!root || !cards.length) return;
+function initMaterialCatalog() {
+  const data = window.ABSOLUT_MATERIALS;
+  const filterRoot = document.querySelector("[data-material-filter]");
+  const supplierGrid = document.querySelector("[data-material-suppliers]");
+  const registryRoot = document.querySelector(".material-registry__groups");
+  const queryInput = document.querySelector("[data-material-query]");
+  const clearButton = document.querySelector("[data-material-clear]");
+  const status = document.querySelector("[data-material-status]");
+  const empty = document.querySelector("[data-material-empty]");
+  if (!data || !filterRoot || !supplierGrid || !registryRoot || !queryInput) return;
 
-  const buttons = Array.from(root.querySelectorAll("[data-material-filter-value]"));
+  const normalize = (value) => String(value || "")
+    .toLocaleLowerCase("ru-RU")
+    .replace(/ё/g, "е")
+    .replace(/[^a-zа-я0-9]+/gi, " ")
+    .trim();
+  const pluralForm = (number, one, few, many) => {
+    const value = Math.abs(number) % 100;
+    const last = value % 10;
+    if (value > 10 && value < 20) return many;
+    if (last === 1) return one;
+    if (last > 1 && last < 5) return few;
+    return many;
+  };
+  const searchValue = (item, category = "all") => {
+    const products = category === "all" ? item.products : (item.productsByCategory?.[category] || []);
+    return normalize([item.name, ...(item.aliases || []), ...products].join(" "));
+  };
+  supplierGrid.innerHTML = data.featured.map((item) => {
+    const compact = item.wordmarkSize === "compact" ? " supplier-wordmark--compact" : "";
+    const blackMark = item.name === "КВТ" ? " supplier-card__logo--black-mark" : "";
+    const logo = item.logo
+      ? `<img src="${escapeHtml(item.logo)}" alt="${escapeHtml(item.name)}" loading="lazy">`
+      : `<strong class="supplier-wordmark${compact}">${escapeHtml(item.name)}</strong>`;
+    const description = item.products.join(" · ");
+    return `
+      <article class="supplier-card" data-material-card data-categories="${escapeHtml(item.categories.join(" "))}" data-search="${escapeHtml(searchValue(item))}">
+        <div class="supplier-card__logo${blackMark}">${logo}</div>
+        <div class="supplier-card__body">
+          <strong>${escapeHtml(item.name)}</strong>
+          <span title="${escapeHtml(description)}">${escapeHtml(description)}</span>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  const registryByCategory = new Map(data.categories.map((category) => [
+    category.id,
+    data.registry
+      .filter((item) => item.categories.includes(category.id))
+      .sort((a, b) => a.name.localeCompare(b.name, "ru"))
+  ]));
+
+  registryRoot.innerHTML = data.categories.map((category) => `
+    <details class="brand-group" data-registry-group="${escapeHtml(category.id)}">
+      <summary>
+        <span>${escapeHtml(category.label)}</span>
+        <small><b data-registry-count>${registryByCategory.get(category.id).length}</b> <span data-registry-count-label>брендов</span></small>
+      </summary>
+      <div class="brand-catalog-grid"></div>
+    </details>
+  `).join("");
+
+  const buttons = Array.from(filterRoot.querySelectorAll("[data-material-filter-value]"));
+  const featuredCards = Array.from(supplierGrid.querySelectorAll("[data-material-card]"));
+  const registryGroups = Array.from(registryRoot.querySelectorAll("[data-registry-group]"));
+  let activeCategory = "all";
+
+  const textMatches = (haystack, query) => {
+    const words = normalize(query).split(" ").filter(Boolean);
+    const haystackWords = haystack.split(" ");
+    const wordMatch = (word) => haystack.includes(word)
+      || (word.length >= 5 && haystackWords.some((candidate) => candidate.startsWith(word.slice(0, 5))));
+    return words.every(wordMatch);
+  };
+
+  const itemMatches = (item, query, category = activeCategory) => {
+    const categoryMatch = category === "all" || item.categories.includes(category);
+    return categoryMatch && textMatches(searchValue(item, category), query);
+  };
+
+  const cardMatches = (card, query) => {
+    const categories = (card.dataset.categories || "").split(" ");
+    const categoryMatch = activeCategory === "all" || categories.includes(activeCategory);
+    return categoryMatch && textMatches(card.dataset.search || "", query);
+  };
+
+  const renderRegistryItems = (group, items) => {
+    const grid = group.querySelector(".brand-catalog-grid");
+    if (!grid) return;
+    const category = group.dataset.registryGroup;
+    grid.innerHTML = items.map((item) => {
+      const description = (item.productsByCategory?.[category] || item.products).join(" · ");
+      const initials = item.name.replace(/[^A-Za-zА-Яа-я0-9]/g, "").slice(0, 2).toLocaleUpperCase("ru-RU");
+      const mark = item.logo
+        ? `<span class="brand-entry__logo${item.name === "КВТ" ? " brand-entry__logo--black" : ""}" aria-hidden="true"><img src="${escapeHtml(item.logo)}" alt="" loading="lazy"></span>`
+        : `<span class="brand-entry__mark" aria-hidden="true">${escapeHtml(initials || "•")}</span>`;
+      return `
+        <article class="brand-entry" data-registry-brand>
+          ${mark}
+          <div>
+            <strong>${escapeHtml(item.name)}</strong>
+            <p>${escapeHtml(description)}</p>
+          </div>
+        </article>
+      `;
+    }).join("");
+  };
+
+  const applyFilters = () => {
+    const query = queryInput.value;
+    let featuredCount = 0;
+    const registryNames = new Set();
+
+    featuredCards.forEach((card) => {
+      const visible = cardMatches(card, query);
+      card.hidden = !visible;
+      if (visible) featuredCount += 1;
+    });
+
+    data.registry.forEach((item) => {
+      if (itemMatches(item, query)) registryNames.add(normalize(item.name));
+    });
+
+    registryGroups.forEach((group) => {
+      const groupCategory = group.dataset.registryGroup;
+      const categoryVisible = activeCategory === "all" || activeCategory === groupCategory;
+      const items = categoryVisible
+        ? (registryByCategory.get(groupCategory) || []).filter((item) => itemMatches(item, query, groupCategory))
+        : [];
+      group.hidden = items.length === 0;
+      const count = group.querySelector("[data-registry-count]");
+      const countLabel = group.querySelector("[data-registry-count-label]");
+      if (count) count.textContent = String(items.length);
+      if (countLabel) countLabel.textContent = pluralForm(items.length, "бренд", "бренда", "брендов");
+      if (query.trim() || activeCategory !== "all") {
+        renderRegistryItems(group, items);
+        group.open = items.length > 0;
+      } else {
+        group.open = false;
+        renderRegistryItems(group, []);
+      }
+    });
+
+    if (clearButton) clearButton.hidden = !query;
+    if (status) {
+      const featuredLabel = pluralForm(featuredCount, "основной бренд", "основных бренда", "основных брендов");
+      const registryLabel = pluralForm(registryNames.size, "компания", "компании", "компаний");
+      status.textContent = `${featuredCount} ${featuredLabel} · ${registryNames.size} ${registryLabel} в каталоге`;
+    }
+    if (empty) empty.hidden = featuredCount > 0 || registryNames.size > 0;
+  };
+
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      const value = button.dataset.materialFilterValue || "all";
+      activeCategory = button.dataset.materialFilterValue || "all";
       buttons.forEach((item) => {
         const active = item === button;
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
       });
-      cards.forEach((card) => {
-        card.hidden = value !== "all" && card.dataset.materialCategory !== value;
-      });
+      applyFilters();
     });
   });
+
+  registryGroups.forEach((group) => {
+    group.addEventListener("toggle", () => {
+      if (queryInput.value.trim() || activeCategory !== "all") return;
+      const category = group.dataset.registryGroup;
+      renderRegistryItems(group, group.open ? (registryByCategory.get(category) || []) : []);
+    });
+  });
+
+  queryInput.addEventListener("input", applyFilters);
+  queryInput.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && queryInput.value) {
+      queryInput.value = "";
+      applyFilters();
+    }
+  });
+  clearButton?.addEventListener("click", () => {
+    queryInput.value = "";
+    queryInput.focus();
+    applyFilters();
+  });
+
+  applyFilters();
 }
 
 async function bootstrap() {
@@ -538,7 +706,7 @@ async function bootstrap() {
   renderProjects();
   renderSocialProjects();
   renderPartners();
-  initMaterialFilters();
+  initMaterialCatalog();
   initRegistrySearch();
   initRequestForm();
 }

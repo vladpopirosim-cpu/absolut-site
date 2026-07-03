@@ -927,6 +927,78 @@ h3 {
   -webkit-line-clamp: 2;
 }
 
+.material-search-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.045);
+}
+
+.material-search-field {
+  display: grid;
+  min-width: 0;
+  position: relative;
+}
+
+.material-search-field > span {
+  margin-bottom: 8px;
+  color: var(--gold-2);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.material-search-field input {
+  width: 100%;
+  height: 52px;
+  padding: 0 52px 0 16px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: var(--radius);
+  outline: 0;
+  background: rgba(7,7,6,.72);
+  color: #fff;
+  font: inherit;
+}
+
+.material-search-field input:focus {
+  border-color: rgba(240,202,105,.72);
+  box-shadow: 0 0 0 3px rgba(240,202,105,.1);
+}
+
+.material-search-field button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}
+
+.material-search-field button:hover {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+}
+
+.material-search-status {
+  min-width: 230px;
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: right;
+}
+
 .material-filter {
   display: flex;
   flex-wrap: wrap;
@@ -965,9 +1037,9 @@ h3 {
 
 .supplier-card {
   display: grid;
-  grid-template-rows: 112px 1fr;
+  grid-template-rows: 104px 1fr;
   min-width: 0;
-  height: 206px;
+  height: 224px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1057,7 +1129,16 @@ h3 {
   font-size: 12px;
   line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
+}
+
+.material-empty {
+  margin-top: 18px;
+  padding: 28px;
+  border: 1px dashed rgba(255,255,255,.18);
+  border-radius: var(--radius);
+  color: var(--muted);
+  text-align: center;
 }
 
 .material-registry {
@@ -1109,6 +1190,86 @@ h3 {
 
 .brand-group[open] summary {
   color: var(--gold-2);
+}
+
+.brand-group summary b {
+  color: #fff;
+}
+
+.brand-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0 0 26px;
+}
+
+.brand-entry {
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  min-width: 0;
+  min-height: 132px;
+  gap: 12px;
+  align-items: start;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.035);
+}
+
+.brand-entry[hidden] {
+  display: none;
+}
+
+.brand-entry__mark {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid rgba(240,202,105,.25);
+  border-radius: var(--radius);
+  background: rgba(240,202,105,.08);
+  color: var(--gold-2);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.brand-entry__logo {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  padding: 5px;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.brand-entry__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.brand-entry__logo--black img {
+  filter: brightness(0);
+}
+
+.brand-entry strong {
+  display: block;
+  margin: 2px 0 8px;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+}
+
+.brand-entry p {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 .brand-list {
@@ -1715,6 +1876,10 @@ code {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .brand-catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .brand-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1787,6 +1952,18 @@ code {
     text-align: center;
   }
 
+  .material-search-panel {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .material-search-status {
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+  }
+
   .material-registry__head,
   .brand-group summary {
     grid-template-columns: 1fr;
@@ -1795,6 +1972,10 @@ code {
 
   .brand-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand-catalog-grid {
+    grid-template-columns: 1fr;
   }
 
   .section {
