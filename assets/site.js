@@ -296,8 +296,8 @@ function renderPartners() {
         || /tochno|ekaterinodar/i.test(String(src || ""));
       return `
       <article class="partner-logo ${lightLogo ? "partner-logo--light" : ""}">
-        <img src="${src}" alt="${escapeHtml(name)}" loading="lazy">
-        <div>
+        <div class="partner-logo__media"><img src="${src}" alt="${escapeHtml(name)}" loading="lazy"></div>
+        <div class="partner-logo__body">
           <strong>${escapeHtml(name)}</strong>
           <span>${escapeHtml(text || "Партнер")}</span>
         </div>
@@ -505,6 +505,27 @@ function initRequestForm() {
   });
 }
 
+function initMaterialFilters() {
+  const root = document.querySelector("[data-material-filter]");
+  const cards = Array.from(document.querySelectorAll("[data-material-category]"));
+  if (!root || !cards.length) return;
+
+  const buttons = Array.from(root.querySelectorAll("[data-material-filter-value]"));
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const value = button.dataset.materialFilterValue || "all";
+      buttons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      cards.forEach((card) => {
+        card.hidden = value !== "all" && card.dataset.materialCategory !== value;
+      });
+    });
+  });
+}
+
 async function bootstrap() {
   await loadContent();
   applySettings();
@@ -517,6 +538,7 @@ async function bootstrap() {
   renderProjects();
   renderSocialProjects();
   renderPartners();
+  initMaterialFilters();
   initRegistrySearch();
   initRequestForm();
 }

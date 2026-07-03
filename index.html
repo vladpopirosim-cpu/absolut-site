@@ -156,39 +156,86 @@
           <div class="section__head">
             <div>
               <span class="eyebrow">материалы и оборудование</span>
-              <h2>Производители для инженерных систем</h2>
+              <h2>Поставщики материалов и оборудования</h2>
             </div>
-            <p>В работе используются материалы и оборудование для вентиляции, пожарной безопасности, водоснабжения, канализации, отопления и сантехнических систем.</p>
+            <p>Оборудование и комплектующие для вентиляции, пожарной безопасности, водоснабжения, канализации, отопления и общестроительных работ.</p>
           </div>
-          <div class="materials-layout">
-            <article class="material-group material-group--feature">
-              <span class="eyebrow">вентиляция и пожарная безопасность</span>
-              <h3>Вентоборудование, пожарное оборудование и воздуховоды</h3>
-              <div class="material-tags">
-                <a href="https://www.veza.ru/" target="_blank" rel="noopener">ВЕЗА</a>
-                <a href="https://zavodventilator.ru/" target="_blank" rel="noopener">Завод Вентилятор</a>
-                <span>Вентоборуд</span>
-                <span>Пожоборуд</span>
-                <span>Воздуховоды</span>
-              </div>
-            </article>
-            <article class="material-group">
-              <span class="eyebrow">бренды сантехкомплекта</span>
-              <h3>Сантехнические и инженерные материалы</h3>
-              <div class="material-logo-grid">
-                <div class="material-logo"><img src="assets/materials/ogneza.png" alt="ОГНЕЗА"></div>
-                <div class="material-logo"><img src="assets/materials/aniplast.png" alt="АНИПЛАСТ"></div>
-                <div class="material-logo"><img src="assets/materials/slaven.png" alt="СЛАВЕН"></div>
-                <div class="material-logo"><img src="assets/materials/santechsystems.png" alt="Santech Systems"></div>
-                <div class="material-logo"><img src="assets/materials/strongman.png" alt="Strongman"></div>
-                <div class="material-logo"><img src="assets/materials/forteca.png" alt="FORTECA"></div>
-                <div class="material-logo"><img src="assets/materials/aquasfera.png" alt="Aquasfera"></div>
-                <div class="material-logo"><img src="assets/materials/benarmo.png" alt="BENARMO"></div>
-                <div class="material-logo"><img src="assets/materials/praktika.png" alt="Практика"></div>
-                <div class="material-logo"><img src="assets/materials/oven.svg" alt="ОВЕН"></div>
-                <div class="material-logo material-logo--dark"><img src="assets/materials/kvt-inverse.svg" alt="KVT"></div>
-              </div>
-            </article>
+
+          <div class="material-filter" data-material-filter aria-label="Фильтр поставщиков">
+            <button type="button" class="is-active" data-material-filter-value="all" aria-pressed="true">Все</button>
+            <button type="button" data-material-filter-value="ventilation" aria-pressed="false">Вентиляция и пожарные системы</button>
+            <button type="button" data-material-filter-value="engineering" aria-pressed="false">Инженерные системы</button>
+            <button type="button" data-material-filter-value="construction" aria-pressed="false">Крепёж и общестрой</button>
+          </div>
+
+          <div class="supplier-grid" data-material-suppliers>
+            <a class="supplier-card" data-material-category="ventilation" href="https://www.veza.ru/" target="_blank" rel="noopener">
+              <div class="supplier-card__logo"><strong class="supplier-wordmark">ВЕЗА</strong></div>
+              <div class="supplier-card__body"><strong>ВЕЗА</strong><span>Вентиляционное оборудование</span></div>
+            </a>
+            <a class="supplier-card" data-material-category="ventilation" href="https://zavodventilator.ru/" target="_blank" rel="noopener">
+              <div class="supplier-card__logo"><strong class="supplier-wordmark supplier-wordmark--compact">ЗАВОД ВЕНТИЛЯТОР</strong></div>
+              <div class="supplier-card__body"><strong>Завод Вентилятор</strong><span>Промышленные вентиляторы</span></div>
+            </a>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/ventz.png" alt="VENTZ"></div><div class="supplier-card__body"><strong>VENTZ</strong><span>Вентиляционное оборудование</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/yugventkom.svg" alt="Завод ЮгВентКом"></div><div class="supplier-card__body"><strong>Завод ЮгВентКом</strong><span>Системы вентиляции</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/pozhtehnika.png" alt="Пожтехника"></div><div class="supplier-card__body"><strong>Пожтехника</strong><span>Пожарное оборудование</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/ogneza.png" alt="ОГНЕЗА"></div><div class="supplier-card__body"><strong>ОГНЕЗА</strong><span>Огнезащитные материалы</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/sd-group.webp" alt="СД Групп"></div><div class="supplier-card__body"><strong>СД Групп</strong><span>Противопожарное оборудование</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo supplier-card__logo--dark"><img src="assets/materials/praktika.png" alt="Практика"></div><div class="supplier-card__body"><strong>Практика</strong><span>Промышленная вентиляция</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo"><img src="assets/materials/oven.svg" alt="ОВЕН"></div><div class="supplier-card__body"><strong>ОВЕН</strong><span>Автоматика и управление</span></div></article>
+            <article class="supplier-card" data-material-category="ventilation"><div class="supplier-card__logo supplier-card__logo--dark"><img src="assets/materials/kvt-inverse.svg" alt="КВТ"></div><div class="supplier-card__body"><strong>КВТ</strong><span>Электротехнический инструмент</span></div></article>
+
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/aniplast.png" alt="АНИПЛАСТ"></div><div class="supplier-card__body"><strong>АНИПЛАСТ</strong><span>Пластиковая сантехарматура</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/slaven.png" alt="СЛАВЕН"></div><div class="supplier-card__body"><strong>СЛАВЕН</strong><span>Смесители и сантехника</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/santechsystems.png" alt="Santech Systems"></div><div class="supplier-card__body"><strong>Santech Systems</strong><span>Арматура и комплектующие</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/strongman.png" alt="Strongman"></div><div class="supplier-card__body"><strong>Strongman</strong><span>Стальные хомуты</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/forteca.png" alt="FORTECA"></div><div class="supplier-card__body"><strong>FORTECA</strong><span>Стальные шаровые краны</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/aquasfera.png" alt="Aquasfera"></div><div class="supplier-card__body"><strong>Aquasfera</strong><span>Инженерная сантехника</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/benarmo.png" alt="BENARMO"></div><div class="supplier-card__body"><strong>BENARMO</strong><span>Запорная арматура</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo"><img src="assets/materials/heaton.webp" alt="HEATON"></div><div class="supplier-card__body"><strong>HEATON</strong><span>Радиаторы и конвекторы</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo supplier-card__logo--cover"><img src="assets/materials/ld-pride.webp" alt="Каталог LD Pride"></div><div class="supplier-card__body"><strong>LD Pride</strong><span>Латунные шаровые краны</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo supplier-card__logo--cover"><img src="assets/materials/sml.webp" alt="Каталог SML"></div><div class="supplier-card__body"><strong>SML</strong><span>Чугунная канализация</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo supplier-card__logo--cover"><img src="assets/materials/rashwork.webp" alt="Каталог РАШВОРК"></div><div class="supplier-card__body"><strong>РАШВОРК</strong><span>Трубопроводная арматура</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo supplier-card__logo--cover"><img src="assets/materials/sinikon.webp" alt="Каталог СИНИКОН"></div><div class="supplier-card__body"><strong>СИНИКОН</strong><span>Канализация и водоотведение</span></div></article>
+            <article class="supplier-card" data-material-category="engineering"><div class="supplier-card__logo supplier-card__logo--cover"><img src="assets/materials/spl.webp" alt="Каталог SPL"></div><div class="supplier-card__body"><strong>SPL</strong><span>Трубопроводные системы PEX</span></div></article>
+
+            <article class="supplier-card" data-material-category="construction"><div class="supplier-card__logo"><img src="assets/materials/alta-construction.png" alt="Alta Construction"></div><div class="supplier-card__body"><strong>Alta Construction</strong><span>Общестроительные материалы</span></div></article>
+            <article class="supplier-card" data-material-category="construction"><div class="supplier-card__logo"><img src="assets/materials/prommetiz.svg" alt="ПРОММЕТИЗ"></div><div class="supplier-card__body"><strong>ПРОММЕТИЗ</strong><span>Профессиональный крепёж</span></div></article>
+            <article class="supplier-card" data-material-category="construction"><div class="supplier-card__logo"><img src="assets/materials/cherbrooke.svg" alt="CHERBROOKE"></div><div class="supplier-card__body"><strong>CHERBROOKE</strong><span>Строительные материалы</span></div></article>
+          </div>
+
+          <div class="material-registry">
+            <div class="material-registry__head">
+              <span class="eyebrow">полный бренд-лист</span>
+              <h3>Производители по направлениям</h3>
+            </div>
+            <div class="material-registry__groups">
+              <details class="brand-group">
+                <summary><span>Водоснабжение и водоотведение</span><small>Трубы, насосы, арматура, канализация</small></summary>
+                <ul class="brand-list">
+                  <li>HENCO</li><li>Rehau</li><li>Usystems (Uponor)</li><li>ProAqua</li><li>STOUT</li><li>MVI</li><li>Политэк</li><li>VALFEX</li><li>FIREPROFF</li><li>Stahlmann</li><li>Wilo</li><li>Wester</li><li>CNP</li><li>Vandjord</li><li>Shinhoo</li><li>Oasis</li><li>Pumpman</li><li>Unipump</li><li>Джилекс</li><li>Ливнынасос</li><li>IMP Pump</li><li>SFA</li><li>DAB</li><li>HL</li><li>Wirquin</li><li>VIRPlast</li><li>АНИПЛАСТ</li><li>ТПК Татполимер</li><li>ROLS ISOMARKET</li><li>K-FLEX</li><li>Ostendorf</li><li>Хемкор</li><li>Геопласт Полимер</li><li>Plastic Pipe</li><li>КТЗ</li><li>УЗПК</li><li>Ридан</li><li>Tecofi</li><li>Broen</li><li>ADL</li><li>LD</li><li>ALSO</li><li>Neptun</li><li>LD Pride</li><li>ЛМЗ Семенов</li><li>DENDOR</li><li>БАЗ</li><li>AQUALINK</li><li>Хит Комплект</li><li>Techno</li><li>Байкал</li><li>РОСМА</li><li>Гранд</li><li>Декаст М</li><li>Норма ИС</li><li>RGP</li><li>LEFOO</li><li>Аквафор</li><li>Гейзер</li><li>Гидротек</li><li>TSARSBERG</li><li>PROFSAN</li><li>Valtec</li><li>SML</li><li>BENARMO</li><li>HEATON</li><li>FORTECA</li><li>Aquasfera</li><li>Santech Systems</li><li>СЛАВЕН</li><li>Strongman</li><li>СИНИКОН</li><li>SPL</li><li>РАШВОРК</li>
+                </ul>
+              </details>
+              <details class="brand-group">
+                <summary><span>Отопление и теплотехника</span><small>Котлы, радиаторы, конвекторы, автоматика</small></summary>
+                <ul class="brand-list">
+                  <li>BAXI</li><li>De Dietrich</li><li>Vaillant</li><li>Protherm</li><li>ЭВАН</li><li>Hubert</li><li>Moguchi</li><li>Kentatsu</li><li>METEOR Thermo</li><li>Gidruss</li><li>Zont</li><li>My Heat</li><li>Бастион</li><li>УТДК</li><li>Philips</li><li>Tesy</li><li>Hajdu</li><li>Royal Thermo</li><li>Electrolux</li><li>Ballu</li><li>Thermex</li><li>Ресанта</li><li>Русский Радиатор</li><li>Rifar</li><li>Ogint</li><li>Konner</li><li>НРЗ</li><li>EVRA</li><li>Rommer</li><li>Zehnder</li><li>Isoterm</li><li>Gekon</li><li>ENSTO</li><li>Hintek</li><li>AC Electric</li><li>ENGY</li><li>Олимп</li><li>Двин</li><li>Ридан</li><li>Этра</li><li>ДЕВИ</li><li>Systeme Electric</li><li>ССТ</li><li>EKF</li><li>Теплолюкс</li><li>EXTHERM</li><li>REXANT</li>
+                </ul>
+              </details>
+              <details class="brand-group">
+                <summary><span>Вентиляция, климат и пожарные системы</span><small>Воздуховоды, автоматика, вентиляторы, кондиционирование</small></summary>
+                <ul class="brand-list">
+                  <li>DiCiTi</li><li>Soler &amp; Palau</li><li>ERA</li><li>Ballu</li><li>Electrolux</li><li>Awenta</li><li>Cata</li><li>ZERNBERG</li><li>AURAMAX</li><li>Арктос</li><li>Naveka</li><li>EVECS</li><li>Фьорди</li><li>FUNAI</li><li>VentArt</li><li>Тепломаш</li><li>Shuft</li><li>ESQ</li><li>TERMA</li><li>ГРЕЕРС</li><li>Zilon</li><li>VOLCANO</li><li>СКРАП</li><li>PATRIOT</li><li>Royal Clima</li><li>Daikin</li><li>Bosch</li><li>LG</li><li>Kentatsu</li><li>Midea</li><li>QuattroClima</li><li>Fujitsu</li><li>Tosot</li><li>Lessar</li><li>Hisense</li><li>HITACHI</li><li>AUX</li><li>EcoClima</li><li>Daichi</li><li>Axioma</li><li>Primera</li><li>Dahaci</li><li>Oasis</li><li>Ecostar</li><li>Puff</li><li>Kitfort</li><li>ENERGY</li><li>HomeStar</li><li>Матрёна</li><li>Leonord</li><li>ORE</li><li>ВЕЗА</li><li>Завод Вентилятор</li><li>VENTZ</li><li>Завод ЮгВентКом</li><li>Пожтехника</li><li>ОГНЕЗА</li><li>СД Групп</li><li>Практика</li><li>ОВЕН</li><li>КВТ</li>
+                </ul>
+              </details>
+              <details class="brand-group">
+                <summary><span>Крепёж, метизы и проектирование</span><small>Анкерная техника, хомуты, такелаж, BIM и САПР</small></summary>
+                <ul class="brand-list">
+                  <li>Крепдил</li><li>КМП</li><li>Партнер</li><li>Руфкомплект</li><li>TECH-KREP</li><li>Fischer</li><li>PRO SORMAT</li><li>PRO BEST-Крепёж</li><li>РФ</li><li>Daxmer</li><li>Авалда</li><li>Европартнер</li><li>Партнер К</li><li>Расвет</li><li>Параллель</li><li>Завод Контакт</li><li>Суперкрепеж</li><li>ОПМ (ПроТек)</li><li>OM-Groupp</li><li>Спецмашметиз</li><li>Реком</li><li>Сенсор</li><li>Oklent</li><li>ROOF</li><li>Мир Хомутов</li><li>Танис</li><li>Мечел-Сервис</li><li>КЗТИ</li><li>СТРАЙК</li><li>MAYER</li><li>Компания ПТК</li><li>ПРОММЕТИЗ</li><li>CHERBROOKE</li><li>Alta Construction</li><li>nanoCAD</li><li>Renga</li><li>CADElectro</li><li>Model Studio CS</li>
+                </ul>
+              </details>
+            </div>
           </div>
         </div>
       </section>
