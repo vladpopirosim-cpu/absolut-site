@@ -133,12 +133,82 @@
     "CHERBROOKE": "assets/materials/cherbrooke.svg"
   };
 
+  const websiteByName = {
+    "Bosch": "https://www.bosch-homecomfort.com/",
+    "Midea": "https://www.midea.com/",
+    "LG": "https://www.lg.com/",
+    "Daikin": "https://www.daikin.com/",
+    "Electrolux": "https://www.electrolux.com/",
+    "Ридан (Danfoss)": "https://www.danfoss.com/",
+    "Ридан": "https://ridan.ru/",
+    "Vaillant": "https://www.vaillant.com/",
+    "Rehau": "https://www.rehau.com/",
+    "Wilo": "https://wilo.com/",
+    "BAXI": "https://www.baxi.com/",
+    "Сантехкомплект": "https://www.santech.ru/",
+    "OGINT": "https://ogint.ru/",
+    "BENARMO": "https://benarmo.ru/",
+    "Aquasfera": "https://aquasfera.ru/",
+    "ВЕЗА": "https://www.veza.ru/",
+    "Завод Вентилятор": "https://zavodventilator.ru/",
+    "ОВЕН": "https://owen.ru/",
+    "ОГНЕЗА": "https://ogneza.com/",
+    "КВТ": "https://kvt.su/",
+    "АНИПЛАСТ": "https://aniplast.ru/",
+    "СИНИКОН": "https://www.sinikon.ru/",
+    "Danfoss": "https://www.danfoss.com/",
+    "Philips": "https://www.philips.com/",
+    "Fujitsu": "https://www.fujitsu.com/",
+    "HITACHI": "https://www.hitachi.com/",
+    "Royal Thermo": "https://www.royal-thermo.ru/",
+    "Protherm": "https://www.protherm.eu/",
+    "De Dietrich": "https://www.dedietrich-heating.com/",
+    "Uponor": "https://www.uponor.com/",
+    "Usystems (Uponor)": "https://www.uponor.com/",
+    "STOUT": "https://www.stout.ru/",
+    "VALFEX": "https://valfex.ru/",
+    "Wester": "https://wester-rus.ru/",
+    "Unipump": "https://unipump.ru/",
+    "Джилекс": "https://jeelex.ru/",
+    "DAB": "https://www.dabpumps.com/",
+    "SFA": "https://www.sfa.ru/",
+    "Ostendorf": "https://www.ostendorf-kunststoffe.com/",
+    "K-FLEX": "https://www.kflex.com/",
+    "Аквафор": "https://www.aquaphor.ru/",
+    "Гейзер": "https://geizer.com/",
+    "Rifar": "https://rifar.ru/",
+    "Zehnder": "https://www.zehndergroup.com/",
+    "ENSTO": "https://www.ensto.com/",
+    "Systeme Electric": "https://systeme.ru/",
+    "EKF": "https://ekfgroup.com/",
+    "Ballu": "https://ballu.ru/",
+    "Thermex": "https://thermex.ru/",
+    "Soler & Palau": "https://www.solerpalau.com/",
+    "ERA": "https://era.trade/",
+    "Shuft": "https://shuft.ru/",
+    "Royal Clima": "https://royalclima.ru/",
+    "Hisense": "https://www.hisense.com/",
+    "Fischer": "https://www.fischer.group/",
+    "nanoCAD": "https://www.nanocad.ru/",
+    "Renga": "https://rengabim.com/"
+  };
+
+  const topCompanyData = {
+    "Bosch": { rank: 1, revenue: "€91,0 млрд", revenueYear: "2025" },
+    "Midea": { rank: 2, revenue: "около €54,8 млрд", revenueYear: "2025" },
+    "LG": { rank: 3, revenue: "₩89,2 трлн", revenueYear: "2025" },
+    "Daikin": { rank: 4, revenue: "¥5,015 трлн", revenueYear: "FY2025" },
+    "Electrolux": { rank: 5, revenue: "SEK 131,3 млрд", revenueYear: "2025" },
+    "Ридан (Danfoss)": { rank: 6, revenue: "€9,4 млрд", revenueYear: "2025" },
+    "Vaillant": { rank: 7, revenue: "€3,8 млрд", revenueYear: "2023" },
+    "Rehau": { rank: 8, revenue: "около €3 млрд", revenueYear: "публичные данные" },
+    "Wilo": { rank: 9, revenue: "€1,919 млрд", revenueYear: "2025" },
+    "BAXI": { rank: 10, revenue: "€1,9 млрд", revenueYear: "BDR Thermea, 2025" }
+  };
+
   const featuredOrder = [
-    "Сантехкомплект", "LD Pride", "OGINT", "BENARMO", "FORTECA", "HEATON", "POC",
-    "Santech Systems", "Aquasfera", "Selena", "СЛАВЕН", "FITTEX Plus", "Strongman",
-    "АНИПЛАСТ", "SML", "СИНИКОН", "SPL", "РАШВОРК", "Alta Construction",
-    "ВЕЗА", "Завод Вентилятор", "VENTZ", "Завод ЮгВентКом", "ОВЕН", "ОГНЕЗА",
-    "Пожтехника", "Практика", "СД Групп", "КВТ", "ПРОММЕТИЗ", "CHERBROOKE"
+    "Bosch", "Midea", "LG", "Daikin", "Electrolux", "Ридан (Danfoss)",
+    "Vaillant", "Rehau", "Wilo", "BAXI"
   ];
 
   const wordmarkSize = {
@@ -154,13 +224,20 @@
     products: Array.from(item.products),
     productsByCategory: Object.fromEntries(Array.from(item.productsByCategory, ([category, products]) => [category, Array.from(products)])),
     aliases: Array.from(item.aliases),
-    logo: logoByName[item.name] || null
+    logo: logoByName[item.name] || null,
+    website: websiteByName[item.name] || null
   }));
 
   const byKey = new Map(registry.map((item) => [keyFor(item.name), item]));
   const featured = featuredOrder.map((name) => {
     const item = byKey.get(keyFor(name));
-    return item ? { ...item, logo: logoByName[name] || null, wordmarkSize: wordmarkSize[name] || "" } : null;
+    return item ? {
+      ...item,
+      logo: logoByName[name] || null,
+      website: websiteByName[name] || null,
+      wordmarkSize: wordmarkSize[name] || "",
+      ...(topCompanyData[name] || {})
+    } : null;
   }).filter(Boolean);
 
   window.ABSOLUT_MATERIALS = { categories, registry, featured };

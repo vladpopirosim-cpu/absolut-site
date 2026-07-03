@@ -540,14 +540,22 @@ function initMaterialCatalog() {
       ? `<img src="${escapeHtml(item.logo)}" alt="${escapeHtml(item.name)}" loading="lazy">`
       : `<strong class="supplier-wordmark${compact}">${escapeHtml(item.name)}</strong>`;
     const description = item.products.join(" · ");
+    const tag = item.website ? "a" : "article";
+    const linkAttributes = item.website
+      ? ` href="${escapeHtml(item.website)}" target="_blank" rel="noopener" aria-label="${escapeHtml(item.name)} — открыть официальный сайт"`
+      : "";
     return `
-      <article class="supplier-card" data-material-card data-categories="${escapeHtml(item.categories.join(" "))}" data-search="${escapeHtml(searchValue(item))}">
-        <div class="supplier-card__logo${blackMark}">${logo}</div>
-        <div class="supplier-card__body">
-          <strong>${escapeHtml(item.name)}</strong>
-          <span title="${escapeHtml(description)}">${escapeHtml(description)}</span>
+      <${tag} class="supplier-card${item.website ? " supplier-card--linked" : ""}"${linkAttributes} data-material-card data-categories="${escapeHtml(item.categories.join(" "))}" data-search="${escapeHtml(searchValue(item))}">
+        <div class="supplier-card__logo${blackMark}">
+          <span class="supplier-card__rank">№${item.rank}</span>
+          ${logo}
         </div>
-      </article>
+        <div class="supplier-card__body">
+          <div class="supplier-card__title"><strong>${escapeHtml(item.name)}</strong><small>${escapeHtml(item.revenueYear || "")}</small></div>
+          <span title="${escapeHtml(description)}">${escapeHtml(description)}</span>
+          <small class="supplier-card__revenue">Выручка: ${escapeHtml(item.revenue || "не раскрыта")}</small>
+        </div>
+      </${tag}>
     `;
   }).join("");
 
@@ -602,14 +610,19 @@ function initMaterialCatalog() {
       const mark = item.logo
         ? `<span class="brand-entry__logo${item.name === "КВТ" ? " brand-entry__logo--black" : ""}" aria-hidden="true"><img src="${escapeHtml(item.logo)}" alt="" loading="lazy"></span>`
         : `<span class="brand-entry__mark" aria-hidden="true">${escapeHtml(initials || "•")}</span>`;
+      const tag = item.website ? "a" : "article";
+      const linkAttributes = item.website
+        ? ` href="${escapeHtml(item.website)}" target="_blank" rel="noopener" aria-label="${escapeHtml(item.name)} — открыть официальный сайт"`
+        : "";
       return `
-        <article class="brand-entry" data-registry-brand>
+        <${tag} class="brand-entry${item.website ? " brand-entry--linked" : ""}"${linkAttributes} data-registry-brand>
           ${mark}
           <div>
             <strong>${escapeHtml(item.name)}</strong>
             <p>${escapeHtml(description)}</p>
           </div>
-        </article>
+          ${item.website ? '<span class="brand-entry__external" aria-hidden="true">↗</span>' : ""}
+        </${tag}>
       `;
     }).join("");
   };

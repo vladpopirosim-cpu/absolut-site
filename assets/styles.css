@@ -1039,13 +1039,23 @@ h3 {
   display: grid;
   grid-template-rows: 104px 1fr;
   min-width: 0;
-  height: 224px;
+  height: 244px;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(20,20,17,.88);
   color: #fff;
   transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.supplier-card--linked {
+  text-decoration: none;
+}
+
+.supplier-card--linked:focus-visible {
+  border-color: var(--gold-2);
+  outline: 3px solid rgba(240,202,105,.2);
+  outline-offset: 2px;
 }
 
 .supplier-card:hover {
@@ -1064,6 +1074,22 @@ h3 {
   min-width: 0;
   padding: 18px;
   background: #fff;
+  position: relative;
+}
+
+.supplier-card__rank {
+  display: grid;
+  width: 34px;
+  height: 28px;
+  place-items: center;
+  border-radius: var(--radius);
+  background: #151512;
+  color: var(--gold-2);
+  font-size: 11px;
+  font-weight: 950;
+  left: 8px;
+  position: absolute;
+  top: 8px;
 }
 
 .supplier-card__logo--dark {
@@ -1122,6 +1148,20 @@ h3 {
   font-size: 16px;
 }
 
+.supplier-card__title {
+  display: flex;
+  min-width: 0;
+  gap: 8px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.supplier-card__title small {
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
 .supplier-card__body span {
   display: -webkit-box;
   overflow: hidden;
@@ -1129,7 +1169,13 @@ h3 {
   font-size: 12px;
   line-height: 1.45;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
+}
+
+.supplier-card__revenue {
+  color: var(--gold-2);
+  font-size: 11px;
+  font-weight: 850;
 }
 
 .material-empty {
@@ -1139,6 +1185,14 @@ h3 {
   border-radius: var(--radius);
   color: var(--muted);
   text-align: center;
+}
+
+.material-ranking-note {
+  max-width: 880px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
 }
 
 .material-registry {
@@ -1214,6 +1268,20 @@ h3 {
   border: 1px solid rgba(255,255,255,.09);
   border-radius: var(--radius);
   background: rgba(255,255,255,.035);
+  color: #fff;
+  position: relative;
+  text-decoration: none;
+}
+
+.brand-entry--linked:hover {
+  border-color: rgba(240,202,105,.34);
+  background: rgba(240,202,105,.055);
+}
+
+.brand-entry--linked:focus-visible {
+  border-color: var(--gold-2);
+  outline: 3px solid rgba(240,202,105,.18);
+  outline-offset: 2px;
 }
 
 .brand-entry[hidden] {
@@ -1270,6 +1338,14 @@ h3 {
   line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+}
+
+.brand-entry__external {
+  color: var(--gold-2);
+  font-size: 14px;
+  position: absolute;
+  right: 10px;
+  top: 8px;
 }
 
 .brand-list {
