@@ -6,7 +6,7 @@
   <title>ООО «АБСОЛЮТ» - строительство, инженерные системы, генподряд</title>
   <meta name="description" content="ООО «АБСОЛЮТ»: строительная компания полного цикла. Проекты, партнеры, реквизиты, обратная связь для заказчиков и тендеров.">
   <link rel="icon" href="assets/logo.png">
-  <link rel="stylesheet" href="assets/styles.css?v=20260704-3">
+  <link rel="stylesheet" href="assets/styles.css?v=20260704-4">
 </head>
 <body>
   <div class="scroll-progress" data-scroll-progress></div>
@@ -161,23 +161,6 @@
             <p>Материалы и оборудование для инженерных систем, отопления, вентиляции, водоснабжения и водоотведения.</p>
           </div>
 
-          <div class="material-search-panel">
-            <label class="material-search-field">
-              <span>Поиск по брендам и продукции</span>
-              <input type="search" data-material-query placeholder="Например: Rehau, насосы, радиаторы или крепёж" autocomplete="off">
-              <button type="button" data-material-clear aria-label="Очистить поиск" title="Очистить поиск">×</button>
-            </label>
-            <p class="material-search-status" data-material-status aria-live="polite"></p>
-          </div>
-
-          <div class="material-filter" data-material-filter aria-label="Фильтр поставщиков">
-            <button type="button" class="is-active" data-material-filter-value="all" aria-pressed="true">Все</button>
-            <button type="button" data-material-filter-value="water" aria-pressed="false">Водоснабжение и водоотведение</button>
-            <button type="button" data-material-filter-value="heating" aria-pressed="false">Отопление и климат</button>
-            <button type="button" data-material-filter-value="ventilation" aria-pressed="false">Вентиляция и пожарные системы</button>
-            <button type="button" data-material-filter-value="construction" aria-pressed="false">Крепёж и общестрой</button>
-          </div>
-
           <div class="supplier-grid" data-material-suppliers>
             <a class="supplier-card" data-material-category="ventilation" href="https://www.veza.ru/" target="_blank" rel="noopener">
               <div class="supplier-card__logo"><strong class="supplier-wordmark">ВЕЗА</strong></div>
@@ -214,13 +197,30 @@
             <article class="supplier-card" data-material-category="construction"><div class="supplier-card__logo"><img src="assets/materials/prommetiz.svg" alt="ПРОММЕТИЗ"></div><div class="supplier-card__body"><strong>ПРОММЕТИЗ</strong><span>Профессиональный крепёж</span></div></article>
             <article class="supplier-card" data-material-category="construction"><div class="supplier-card__logo"><img src="assets/materials/cherbrooke.svg" alt="CHERBROOKE"></div><div class="supplier-card__body"><strong>CHERBROOKE</strong><span>Строительные материалы</span></div></article>
           </div>
-          <div class="material-empty" data-material-empty hidden>По вашему запросу бренды не найдены. Попробуйте изменить название или выбрать другой раздел.</div>
+
+          <div class="material-search-panel">
+            <label class="material-search-field">
+              <span>Поиск по брендам и продукции</span>
+              <input type="search" data-material-query placeholder="Например: RTP, Rehau, насосы или радиаторы" autocomplete="off">
+              <button type="button" data-material-clear aria-label="Очистить поиск" title="Очистить поиск">×</button>
+            </label>
+            <p class="material-search-status" data-material-status aria-live="polite"></p>
+          </div>
+
+          <div class="material-filter" data-material-filter aria-label="Фильтр поставщиков">
+            <button type="button" class="is-active" data-material-filter-value="all" aria-pressed="true">Все</button>
+            <button type="button" data-material-filter-value="water" aria-pressed="false">Водоснабжение и водоотведение</button>
+            <button type="button" data-material-filter-value="heating" aria-pressed="false">Отопление и климат</button>
+            <button type="button" data-material-filter-value="ventilation" aria-pressed="false">Вентиляция и пожарные системы</button>
+            <button type="button" data-material-filter-value="construction" aria-pressed="false">Крепёж и общестрой</button>
+          </div>
 
           <div class="material-registry">
             <div class="material-registry__head">
               <span class="eyebrow">полный каталог</span>
               <h3>Все бренды и продукция</h3>
             </div>
+            <div class="material-empty" data-material-empty hidden>По вашему запросу бренды не найдены. Попробуйте изменить название или выбрать другой раздел.</div>
             <div class="material-registry__groups">
               <details class="brand-group">
                 <summary><span>Водоснабжение и водоотведение</span><small>Трубы, насосы, арматура, канализация</small></summary>
@@ -293,7 +293,7 @@
   </div>
 
   <script src="assets/content.js"></script>
-  <script src="assets/materials-catalog.js?v=20260704-2"></script>
-  <script src="assets/site.js?v=20260704-2"></script>
+  <script src="assets/materials-catalog.js?v=20260704-3"></script>
+  <script src="assets/site.js?v=20260704-3"></script>
 </body>
 </html>

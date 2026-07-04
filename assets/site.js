@@ -575,7 +575,6 @@ function initMaterialCatalog() {
   `).join("");
 
   const buttons = Array.from(filterRoot.querySelectorAll("[data-material-filter-value]"));
-  const featuredCards = Array.from(supplierGrid.querySelectorAll("[data-material-card]"));
   const registryGroups = Array.from(registryRoot.querySelectorAll("[data-registry-group]"));
   let activeCategory = "all";
 
@@ -592,22 +591,15 @@ function initMaterialCatalog() {
     return categoryMatch && textMatches(searchValue(item, category), query);
   };
 
-  const cardMatches = (card, query) => {
-    const categories = (card.dataset.categories || "").split(" ");
-    const categoryMatch = activeCategory === "all" || categories.includes(activeCategory);
-    return categoryMatch && textMatches(card.dataset.search || "", query);
-  };
-
   const renderRegistryItems = (group, items) => {
     const grid = group.querySelector(".brand-catalog-grid");
     if (!grid) return;
     const category = group.dataset.registryGroup;
     grid.innerHTML = items.map((item) => {
       const description = (item.productsByCategory?.[category] || item.products).join(" · ");
-      const initials = item.name.replace(/[^A-Za-zА-Яа-я0-9]/g, "").slice(0, 2).toLocaleUpperCase("ru-RU");
       const mark = item.logo
         ? `<span class="brand-entry__logo${item.name === "КВТ" ? " brand-entry__logo--black" : ""}" aria-hidden="true"><img src="${escapeHtml(item.logo)}" alt="" loading="lazy"></span>`
-        : `<span class="brand-entry__mark" aria-hidden="true">${escapeHtml(initials || "•")}</span>`;
+        : `<span class="brand-entry__mark" aria-hidden="true"><span>${escapeHtml(item.name)}</span></span>`;
       const tag = item.website ? "a" : "article";
       const linkAttributes = item.website
         ? ` href="${escapeHtml(item.website)}" target="_blank" rel="noopener" aria-label="${escapeHtml(item.name)} — открыть официальный сайт"`
@@ -627,14 +619,7 @@ function initMaterialCatalog() {
 
   const applyFilters = () => {
     const query = queryInput.value;
-    let featuredCount = 0;
     const registryNames = new Set();
-
-    featuredCards.forEach((card) => {
-      const visible = cardMatches(card, query);
-      card.hidden = !visible;
-      if (visible) featuredCount += 1;
-    });
 
     data.registry.forEach((item) => {
       if (itemMatches(item, query)) registryNames.add(normalize(item.name));
@@ -662,11 +647,10 @@ function initMaterialCatalog() {
 
     if (clearButton) clearButton.hidden = !query;
     if (status) {
-      const featuredLabel = pluralForm(featuredCount, "основной бренд", "основных бренда", "основных брендов");
       const registryLabel = pluralForm(registryNames.size, "компания", "компании", "компаний");
-      status.textContent = `${featuredCount} ${featuredLabel} · ${registryNames.size} ${registryLabel} в каталоге`;
+      status.textContent = `${registryNames.size} ${registryLabel} в каталоге`;
     }
-    if (empty) empty.hidden = featuredCount > 0 || registryNames.size > 0;
+    if (empty) empty.hidden = registryNames.size > 0;
   };
 
   buttons.forEach((button) => {

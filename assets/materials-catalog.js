@@ -13,7 +13,7 @@
     .replace(/\s+/g, " ")
     .trim();
 
-  function add(category, product, brands) {
+  function add(category, product, brands, aliases = []) {
     brands.forEach((name) => {
       const key = keyFor(name);
       const item = entries.get(key) || { name, categories: new Set(), products: new Set(), productsByCategory: new Map(), aliases: new Set() };
@@ -22,11 +22,13 @@
       const categoryProducts = item.productsByCategory.get(category) || new Set();
       categoryProducts.add(product);
       item.productsByCategory.set(category, categoryProducts);
+      aliases.forEach((alias) => item.aliases.add(alias));
       entries.set(key, item);
     });
   }
 
   add("water", "Трубопроводные системы из сшитого полиэтилена PEX", ["HENCO", "Rehau", "Usystems (Uponor)", "ProAqua", "STOUT", "MVI", "Valtec"]);
+  add("water", "Полипропиленовые трубы и фитинги для инженерных систем", ["RTP"], ["РТП", "РосТурПласт"]);
   add("water", "Полипропиленовые трубы и фитинги PPR", ["ProAqua", "Политэк", "VALFEX"]);
   add("water", "Трубы и фитинги PPR для систем пожаротушения", ["FIREPROFF"]);
   add("water", "Трубопроводные системы из нержавеющей стали", ["Stahlmann"]);
@@ -67,7 +69,7 @@
   add("construction", "Анкерная техника", ["Крепдил", "КМП", "Партнер", "Руфкомплект", "TECH-KREP", "Fischer", "PRO SORMAT", "PRO BEST-Крепёж"]);
   add("construction", "Гвозди и заклёпки", ["Крепдил", "РФ", "Партнер", "Руфкомплект", "Daxmer", "PRO SORMAT", "TECH-KREP", "Авалда"]);
   add("construction", "Дюбельная техника", ["Крепдил", "Европартнер", "Партнер", "Daxmer", "Fischer", "PRO SORMAT", "TECH-KREP"]);
-  add("construction", "Метрический крепёж", ["Крепдил", "Партнер", "РФ", "Руфкомплект", "Партнер К", "Расвет", "Параллель", "TECH-KREP", "Завод Контакт", "Суперкрепеж", "ОПМ (ПроТек)"]);
+  add("construction", "Метрический крепёж", ["Крепдил", "Партнер", "РФ", "Руфкомплект", "Партнер К", "Расвет", "Параллель", "TECH-KREP", "Завод Контакт", "Суперкрепеж", "ОПМ", "ПроТек"]);
   add("construction", "Дюймовый крепёж", ["OM-Groupp", "Спецмашметиз", "Реком", "Сенсор"]);
   add("construction", "Пены и герметики", ["Oklent", "ROOF"]);
   add("construction", "Нержавеющий крепёж", ["PRO BEST-Крепёж", "КМП", "Партнер", "Европартнер"]);
@@ -97,13 +99,15 @@
   add("heating", "Отопительное оборудование, радиаторы и насосы", ["OGINT"]);
   add("heating", "Стальные панельные радиаторы и внутрипольные конвекторы", ["HEATON"]);
 
-  add("ventilation", "Промышленное вентиляционное оборудование", ["ВЕЗА", "Завод Вентилятор", "VENTZ", "Завод ЮгВентКом", "Практика"]);
+  add("ventilation", "Промышленное вентиляционное оборудование", ["ВЕЗА", "Завод Вентилятор", "VENTZ", "Завод ЮгВентКом"]);
+  add("ventilation", "Воздуховоды, комплектующие и монтаж вентиляционных систем", ["Alta Construction"]);
   add("ventilation", "Пожарное оборудование и системы противопожарной защиты", ["Пожтехника", "СД Групп"]);
   add("ventilation", "Огнезащитные материалы", ["ОГНЕЗА"]);
   add("ventilation", "Автоматика и управление инженерными системами", ["ОВЕН"]);
   add("construction", "Электротехнический инструмент и монтажное оборудование", ["КВТ"]);
   add("construction", "Профессиональный крепёж и метизы", ["ПРОММЕТИЗ"]);
-  add("construction", "Общестроительные и отделочные материалы", ["Alta Construction", "CHERBROOKE"]);
+  add("construction", "Профессиональный инструмент и расходная оснастка", ["Практика"]);
+  add("construction", "Общестроительные и отделочные материалы", ["CHERBROOKE"]);
 
   const logoByName = {
     "ВЕЗА": "assets/materials/veza.svg",
@@ -131,6 +135,10 @@
     "EVRA": "assets/materials/evra.png",
     "РАШВОРК": "assets/materials/rashwork.png",
     "СИНИКОН": "assets/materials/sinikon.png",
+    "RTP": "assets/materials/rtp.svg",
+    "Techno": "assets/materials/techno-wordmark.png",
+    "РФ": "assets/materials/rf-wordmark.png",
+    "Партнер К": "assets/materials/partner-k-wordmark.png",
     "POC": "assets/materials/poc.png",
     "Selena": "assets/materials/selena.png",
     "FITTEX Plus": "assets/materials/fittex-plus.png",
@@ -168,8 +176,8 @@
     "СИНИКОН": "https://www.sinikon.ru/",
     "Danfoss": "https://www.danfoss.com/",
     "Philips": "https://www.philips.com/",
-    "Fujitsu": "https://www.fujitsu.com/",
-    "HITACHI": "https://www.hitachi.com/",
+    "Fujitsu": "https://www.fujitsu-general.com/global/",
+    "HITACHI": "https://www.jci-hitachi.com/",
     "Royal Thermo": "https://www.royal-thermo.ru/",
     "Protherm": "https://www.protherm.eu/",
     "De Dietrich": "https://www.dedietrich-heating.com/",
@@ -201,6 +209,168 @@
     "Fischer": "https://www.fischer.group/",
     "nanoCAD": "https://www.nanocad.ru/",
     "Renga": "https://rengabim.com/"
+    ,"RTP": "https://rtp.ru/"
+    ,"ProAqua": "https://proaqua.ru/"
+    ,"MVI": "https://mvi-rus.ru/"
+    ,"Valtec": "https://valtec.ru/"
+    ,"Политэк": "https://politek-pipe.ru/"
+    ,"FIREPROFF": "https://fireproff.ru/"
+    ,"Stahlmann": "https://stahlmann.ru/"
+    ,"CNP": "https://www.cnppump.com/"
+    ,"Vandjord": "https://vandjord.ru/"
+    ,"Shinhoo": "https://www.shinhoopump.com/"
+    ,"Oasis": "https://oasis-home.ru/"
+    ,"Pumpman": "https://www.pumpman.com/"
+    ,"Ливнынасос": "https://livnynasos.ru/"
+    ,"IMP Pump": "https://imp-pumps.com/"
+    ,"HL": "https://www.hutterer-lechner.com/"
+    ,"Wirquin": "https://www.wirquin.com/"
+    ,"VIRPlast": "https://virplast.ru/"
+    ,"ТПК Татполимер": "https://tatpolimer.ru/"
+    ,"ROLS ISOMARKET": "https://rols-isomarket.ru/"
+    ,"Хемкор": "https://hemkor.ru/"
+    ,"Геопласт Полимер": "https://geoplastpolymer.ru/"
+    ,"КТЗ": "https://ktz.ru/"
+    ,"УЗПК": "https://uzpk.ru/"
+    ,"Tecofi": "https://www.tecofi.fr/"
+    ,"Broen": "https://www.broen.com/"
+    ,"ADL": "https://adl.ru/"
+    ,"LD": "https://ldcompany.ru/"
+    ,"ALSO": "https://also.su/"
+    ,"Neptun": "https://neptun-mcs.ru/"
+    ,"LD Pride": "https://ld-pride.ru/"
+    ,"ЛМЗ Семенов": "https://lmz-semenov.ru/"
+    ,"DENDOR": "https://dendor.ru/"
+    ,"БАЗ": "https://baz-armatura.ru/"
+    ,"AQUALINK": "https://aqualink.ru/"
+    ,"Хит Комплект": "https://hitkomplekt.ru/"
+    ,"РОСМА": "https://rosma.ru/"
+    ,"Декаст М": "https://decast.ru/"
+    ,"Норма ИС": "https://normais.ru/"
+    ,"LEFOO": "https://www.lefoo.com/"
+    ,"Гидротек": "https://gidrotek.ru/"
+    ,"TSARSBERG": "https://tsarsberg.ru/"
+    ,"PROFSAN": "https://profsan.ru/"
+    ,"СЛАВЕН": "https://slaven.ru/"
+    ,"Santech Systems": "https://www.santech.ru/"
+    ,"SPL": "https://spl.ru/"
+    ,"ЭВАН": "https://www.evan.ru/"
+    ,"Hubert": "https://hubertclimate.ru/"
+    ,"Moguchi": "https://moguchi.ru/"
+    ,"Kentatsu": "https://kentatsurussia.ru/"
+    ,"METEOR Thermo": "https://meteorthermo.ru/"
+    ,"Gidruss": "https://gidruss.ru/"
+    ,"Zont": "https://zont-online.ru/"
+    ,"My Heat": "https://myheat.net/"
+    ,"Бастион": "https://bast.ru/"
+    ,"УТДК": "https://utdk.ru/"
+    ,"Tesy": "https://tesy.com/"
+    ,"Hajdu": "https://hajdurt.hu/"
+    ,"Ресанта": "https://resanta.ru/"
+    ,"Русский Радиатор": "https://rus-radiator.ru/"
+    ,"Konner": "https://konner.ru/"
+    ,"Rommer": "https://rommer.ru/"
+    ,"Isoterm": "https://isoterm.ru/"
+    ,"Gekon": "https://gekon.ru/"
+    ,"Oasis Klima": "https://oasis-climate.ru/"
+    ,"Hintek": "https://hintek.ru/"
+    ,"AC Electric": "https://ac-electric.ru/"
+    ,"ENGY": "https://engy.ru/"
+    ,"Двин": "https://dvin.ru/"
+    ,"Этра": "https://etra.ru/"
+    ,"ДЕВИ": "https://devi.ru/"
+    ,"ССТ": "https://sst.ru/"
+    ,"Теплолюкс": "https://teploluxe.ru/"
+    ,"EXTHERM": "https://extherm.ru/"
+    ,"REXANT": "https://rexant.ru/"
+    ,"DiCiTi": "https://diciti.ru/"
+    ,"Awenta": "https://awenta.pl/"
+    ,"Cata": "https://www.cata.com/"
+    ,"ZERNBERG": "https://zernberg.com/"
+    ,"AURAMAX": "https://auramax.ru/"
+    ,"Арктос": "https://arktos.ru/"
+    ,"Naveka": "https://naveka.ru/"
+    ,"EVECS": "https://evecs.ru/"
+    ,"Фьорди": "https://fiordi.ru/"
+    ,"FUNAI": "https://funai-aircon.com/"
+    ,"VentArt": "https://ventart.ru/"
+    ,"Тепломаш": "https://teplomash.ru/"
+    ,"ESQ": "https://esq-group.ru/"
+    ,"ГРЕЕРС": "https://greers.ru/"
+    ,"Zilon": "https://zilon.ru/"
+    ,"VOLCANO": "https://volcano.com.pl/"
+    ,"PATRIOT": "https://patriotgarden.ru/"
+    ,"QuattroClima": "https://quattroclima.ru/"
+    ,"Tosot": "https://tosot.ru/"
+    ,"Lessar": "https://lessar.com/"
+    ,"AUX": "https://aux-air.ru/"
+    ,"EcoClima": "https://ecoclima.ru/"
+    ,"Daichi": "https://daichi.ru/"
+    ,"Axioma": "https://axioma-air.ru/"
+    ,"Primera": "https://primera-air.ru/"
+    ,"Ecostar": "https://ecostar.ru/"
+    ,"Puff": "https://puff.ru/"
+    ,"KITFORT": "https://kitfort.ru/"
+    ,"ENERGY": "https://energy-russia.ru/"
+    ,"HomeStar": "https://homestar.ru/"
+    ,"VENTZ": "https://ventzavod.ru/"
+    ,"Пожтехника": "https://pozhtehnika.ru/"
+    ,"TECH-KREP": "https://tech-krep.ru/"
+    ,"Daxmer": "https://daxmer.ru/"
+    ,"Завод Контакт": "https://zavod-kontakt.ru/"
+    ,"Суперкрепеж": "https://superkrepezh.ru/"
+    ,"OM-Groupp": "https://om-groupp.ru/"
+    ,"Спецмашметиз": "https://specmashmetiz.ru/"
+    ,"Oklent": "https://oklent.ru/"
+    ,"Мир Хомутов": "https://mirhomutov.ru/"
+    ,"Танис": "https://tanis.ru/"
+    ,"Мечел-Сервис": "https://mechel-service.ru/"
+    ,"КЗТИ": "https://kzti.ru/"
+    ,"CADElectro": "https://www.cadelectro.ru/"
+    ,"Model Studio CS": "https://modelstudiocs.ru/"
+    ,"ПРОММЕТИЗ": "https://bronebolt.com/prommetiz"
+    ,"Plastic Pipe": "https://plastic-pipe.ru/"
+    ,"RGP": "https://r-g-p.ru/"
+    ,"НРЗ": "https://nrz-radiator.ru/"
+    ,"Олимп": "https://olimpdv.ru/"
+    ,"ORE": "https://vent-sn.ru/"
+    ,"TERMA": "https://termaheat.com/"
+    ,"СКРАП": "https://skrap.ru/"
+    ,"Dahaci": "https://dahaci.com/"
+    ,"Leonord": "https://skrap.ru/brands/leonord/"
+    ,"Матрёна": "https://skrap.ru/brands/matryona/"
+    ,"Крепдил": "https://www.etm.ru/brand/krepezhnyj-dvor-krepdil"
+    ,"Руфкомплект": "https://rufkomplekt.ru/"
+    ,"PRO SORMAT": "https://sormat.com/"
+    ,"PRO BEST-Крепёж": "https://pro-best.ru/"
+    ,"Авалда": "https://avalda.ru/"
+    ,"Европартнер": "https://europartner.ru/"
+    ,"СТРАЙК": "https://strikeshop.ru/"
+    ,"FORTECA": "https://www.santech.ru/brands/forteca/"
+    ,"Selena": "https://www.santech.ru/brands/selena/"
+    ,"FITTEX Plus": "https://www.santech.ru/brands/fittex-plus/"
+    ,"Strongman": "https://www.santech.ru/brands/strongman/"
+    ,"SML": "https://www.santech.ru/catalog/kanalizatsiya/chugunnaya-kanalizatsiya-sml/"
+    ,"POC": "https://www.santech.ru/"
+    ,"HEATON": "https://www.santech.ru/brands/heaton/"
+    ,"Байкал": "https://xn--80aabspdhdg5buo.xn--p1ai/"
+    ,"Гранд": "https://www.turbo-don.ru/"
+    ,"КМП": "https://kmp-trade.ru/"
+    ,"Партнер": "https://partner-dv.ru/"
+    ,"Расвет": "https://rasvetnt.ru/"
+    ,"Параллель": "https://bolt57.ru/"
+    ,"ОПМ": "https://optprommetiz.ru/"
+    ,"ПроТек": "https://protec-krepezh.ru/"
+    ,"Реком": "https://zavod-rekom.ru/"
+    ,"Сенсор": "https://www.sensor45.ru/"
+    ,"ROOF": "https://www.roofcom.ru/"
+    ,"MAYER": "https://mayerfix.ru/"
+    ,"Компания ПТК": "https://zamki.biz/"
+    ,"Завод ЮгВентКом": "https://svs-air.com/"
+    ,"СД Групп": "https://sdgroup-kuban.ru/"
+    ,"CHERBROOKE": "https://cherbrooke.ru/"
+    ,"Практика": "https://praktika-rus.ru/"
+    ,"Alta Construction": "https://alta-vent.ru/"
   };
 
   const featuredOrder = [
@@ -215,13 +385,23 @@
     "СИНИКОН": "compact"
   };
 
+  const siteLogoFor = (website) => {
+    if (!website) return null;
+    try {
+      const hostname = new URL(website).hostname.replace(/^www\./, "").replace(/[^a-z0-9.-]/gi, "-");
+      return `assets/materials/site-logos/${hostname}.png`;
+    } catch {
+      return null;
+    }
+  };
+
   const registry = Array.from(entries.values()).map((item) => ({
     name: item.name,
     categories: Array.from(item.categories),
     products: Array.from(item.products),
     productsByCategory: Object.fromEntries(Array.from(item.productsByCategory, ([category, products]) => [category, Array.from(products)])),
     aliases: Array.from(item.aliases),
-    logo: logoByName[item.name] || null,
+    logo: logoByName[item.name] || siteLogoFor(websiteByName[item.name]),
     website: websiteByName[item.name] || null
   }));
 
@@ -230,7 +410,7 @@
     const item = byKey.get(keyFor(name));
     return item ? {
       ...item,
-      logo: logoByName[name] || null,
+      logo: logoByName[name] || siteLogoFor(websiteByName[name]),
       website: websiteByName[name] || null,
       wordmarkSize: wordmarkSize[name] || ""
     } : null;
