@@ -37,7 +37,7 @@ function initNavigation() {
 
 function applySettings() {
   const company = settings.companyName || "ООО «АБСОЛЮТ»";
-  const tagline = settings.tagline || "строительная компания";
+  const tagline = settings.tagline || "инженерная компания";
   const phoneDisplay = settings.phoneDisplay || "+7 938 524 46 84";
   const phoneHref = settings.phoneHref || "+79385244684";
   const primaryEmail = settings.primaryEmail || "absolut-23@mail.ru";

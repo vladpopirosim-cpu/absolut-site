@@ -3,7 +3,7 @@
     { id: "water", label: "Водоснабжение и водоотведение" },
     { id: "heating", label: "Отопление и климат" },
     { id: "ventilation", label: "Вентиляция и пожарные системы" },
-    { id: "construction", label: "Крепёж и общестрой" }
+    { id: "construction", label: "Крепёж и материалы" }
   ];
 
   const entries = new Map();
@@ -63,7 +63,7 @@
   add("ventilation", "Водяные и электрические тепловентиляторы", ["VOLCANO", "TERMA", "Тепломаш", "Ballu", "ГРЕЕРС", "Zilon", "VentArt", "СКРАП", "ENGY"]);
   add("ventilation", "Тепловые пушки, тепловентиляторы и теплогенераторы", ["Ballu", "Oasis", "Royal Clima", "Thermex", "Zilon", "Арктос", "Тепломаш", "PATRIOT", "REXANT", "ENGY", "Hintek", "Ресанта"]);
   add("ventilation", "Кондиционеры и сплит-системы", ["Daikin", "Bosch", "LG", "Kentatsu", "Midea", "QuattroClima", "Fujitsu", "Tosot", "Lessar", "Hisense", "Royal Clima", "FUNAI", "HITACHI", "AUX", "EcoClima", "Ballu", "Electrolux", "Daichi", "Axioma", "Primera", "Dahaci", "Oasis", "Shuft"]);
-  add("ventilation", "Бытовая климатическая техника: увлажнители, осушители и вентиляторы", ["Thermex", "Ballu", "Electrolux", "Ecostar", "FUNAI", "Puff", "Royal Clima", "Ресанта", "KITFORT", "Oasis", "REXANT", "ENERGY", "СКРАП"]);
+  add("ventilation", "Бытовая климатическая техника: увлажнители, осушители и вентиляторы", ["Thermex", "Ballu", "Electrolux", "Ecostar", "FUNAI", "Royal Clima", "Ресанта", "KITFORT", "Oasis", "REXANT", "ENERGY", "СКРАП"]);
   add("ventilation", "Бытовая техника", ["KITFORT", "Oasis", "Leonord", "ORE", "ENERGY", "HomeStar", "Матрёна"]);
 
   add("construction", "Анкерная техника", ["Крепдил", "КМП", "Партнер", "Руфкомплект", "TECH-KREP", "Fischer", "PRO SORMAT", "PRO BEST-Крепёж"]);
@@ -96,6 +96,7 @@
   add("water", "Трубопроводная и запорная арматура", ["РАШВОРК"]);
   add("water", "Трубы для отопления и охлаждения, фитинги и коллекторы", ["POC"]);
   add("water", "Поставка сантехники и инженерного оборудования", ["Сантехкомплект"]);
+  add("water", "Электросушители для рук и оборудование для санитарных помещений", ["Puff"]);
   add("heating", "Отопительное оборудование, радиаторы и насосы", ["OGINT"]);
   add("heating", "Стальные панельные радиаторы и внутрипольные конвекторы", ["HEATON"]);
 
@@ -107,7 +108,7 @@
   add("construction", "Электротехнический инструмент и монтажное оборудование", ["КВТ"]);
   add("construction", "Профессиональный крепёж и метизы", ["ПРОММЕТИЗ"]);
   add("construction", "Профессиональный инструмент и расходная оснастка", ["Практика"]);
-  add("construction", "Общестроительные и отделочные материалы", ["CHERBROOKE"]);
+  add("construction", "Материалы для отделки и монтажных задач", ["CHERBROOKE"]);
 
   const logoByName = {
     "ВЕЗА": "assets/materials/veza.svg",
@@ -136,6 +137,25 @@
     "РАШВОРК": "assets/materials/rashwork.png",
     "СИНИКОН": "assets/materials/sinikon.png",
     "RTP": "assets/materials/rtp.svg",
+    "Puff": "assets/materials/puff.svg",
+    "ProAqua": "assets/materials/site-logos/proaqua.ru.png",
+    "VIRPlast": "assets/materials/site-logos/virplast.ru.png",
+    "УЗПК": "assets/materials/site-logos/uzpk.ru.png",
+    "ALSO": "assets/materials/site-logos/also.su.png",
+    "Гидротек": "assets/materials/site-logos/gidrotek.ru.png",
+    "PROFSAN": "assets/materials/site-logos/profsan.ru.png",
+    "Gidruss": "assets/materials/site-logos/gidruss.ru.png",
+    "Zont": "assets/materials/site-logos/zont-online.ru.png",
+    "ДЕВИ": "assets/materials/site-logos/devi.ru.png",
+    "AURAMAX": "assets/materials/site-logos/auramax.ru.png",
+    "TERMA": "assets/materials/site-logos/termaheat.com.png",
+    "QuattroClima": "assets/materials/site-logos/quattroclima.ru.png",
+    "HITACHI": "assets/materials/site-logos/jci-hitachi.com.png",
+    "Daxmer": "assets/materials/site-logos/daxmer.ru.png",
+    "Суперкрепеж": "assets/materials/site-logos/superkrepezh.ru.png",
+    "PRO BEST-Крепёж": "assets/materials/site-logos/pro-best.ru.png",
+    "Европартнер": "assets/materials/site-logos/europartner.ru.png",
+    "ОПМ": "assets/materials/site-logos/optprommetiz.ru.png",
     "Techno": "assets/materials/techno-wordmark.png",
     "РФ": "assets/materials/rf-wordmark.png",
     "Партнер К": "assets/materials/partner-k-wordmark.png",
@@ -177,7 +197,7 @@
     "Danfoss": "https://www.danfoss.com/",
     "Philips": "https://www.philips.com/",
     "Fujitsu": "https://www.fujitsu-general.com/global/",
-    "HITACHI": "https://www.jci-hitachi.com/",
+    "HITACHI": "https://www.hitachiaircon.com/",
     "Royal Thermo": "https://www.royal-thermo.ru/",
     "Protherm": "https://www.protherm.eu/",
     "De Dietrich": "https://www.dedietrich-heating.com/",
@@ -210,7 +230,7 @@
     "nanoCAD": "https://www.nanocad.ru/",
     "Renga": "https://rengabim.com/"
     ,"RTP": "https://rtp.ru/"
-    ,"ProAqua": "https://proaqua.ru/"
+    ,"ProAqua": "https://www.proaqua.pro/"
     ,"MVI": "https://mvi-rus.ru/"
     ,"Valtec": "https://valtec.ru/"
     ,"Политэк": "https://politek-pipe.ru/"
@@ -225,18 +245,18 @@
     ,"IMP Pump": "https://imp-pumps.com/"
     ,"HL": "https://www.hutterer-lechner.com/"
     ,"Wirquin": "https://www.wirquin.com/"
-    ,"VIRPlast": "https://virplast.ru/"
+    ,"VIRPlast": "https://www.wirquingroup.com/"
     ,"ТПК Татполимер": "https://tatpolimer.ru/"
     ,"ROLS ISOMARKET": "https://rols-isomarket.ru/"
     ,"Хемкор": "https://hemkor.ru/"
     ,"Геопласт Полимер": "https://geoplastpolymer.ru/"
     ,"КТЗ": "https://ktz.ru/"
-    ,"УЗПК": "https://uzpk.ru/"
+    ,"УЗПК": "https://pocom.ru/"
     ,"Tecofi": "https://www.tecofi.fr/"
     ,"Broen": "https://www.broen.com/"
     ,"ADL": "https://adl.ru/"
     ,"LD": "https://ldcompany.ru/"
-    ,"ALSO": "https://also.su/"
+    ,"ALSO": "https://alsoarm.ru/"
     ,"Neptun": "https://neptun-mcs.ru/"
     ,"LD Pride": "https://ld-pride.ru/"
     ,"ЛМЗ Семенов": "https://lmz-semenov.ru/"
@@ -248,9 +268,9 @@
     ,"Декаст М": "https://decast.ru/"
     ,"Норма ИС": "https://normais.ru/"
     ,"LEFOO": "https://www.lefoo.com/"
-    ,"Гидротек": "https://gidrotek.ru/"
+    ,"Гидротек": "https://www.spbfilter.ru/"
     ,"TSARSBERG": "https://tsarsberg.ru/"
-    ,"PROFSAN": "https://profsan.ru/"
+    ,"PROFSAN": "https://profsan-psm.ru/"
     ,"СЛАВЕН": "https://slaven.ru/"
     ,"Santech Systems": "https://www.santech.ru/"
     ,"SPL": "https://spl.ru/"
@@ -259,8 +279,8 @@
     ,"Moguchi": "https://moguchi.ru/"
     ,"Kentatsu": "https://kentatsurussia.ru/"
     ,"METEOR Thermo": "https://meteorthermo.ru/"
-    ,"Gidruss": "https://gidruss.ru/"
-    ,"Zont": "https://zont-online.ru/"
+    ,"Gidruss": "https://web.gidruss.ru/"
+    ,"Zont": "https://zont.online/"
     ,"My Heat": "https://myheat.net/"
     ,"Бастион": "https://bast.ru/"
     ,"УТДК": "https://utdk.ru/"
@@ -278,7 +298,7 @@
     ,"ENGY": "https://engy.ru/"
     ,"Двин": "https://dvin.ru/"
     ,"Этра": "https://etra.ru/"
-    ,"ДЕВИ": "https://devi.ru/"
+    ,"ДЕВИ": "https://www.devi.com/"
     ,"ССТ": "https://sst.ru/"
     ,"Теплолюкс": "https://teploluxe.ru/"
     ,"EXTHERM": "https://extherm.ru/"
@@ -287,7 +307,7 @@
     ,"Awenta": "https://awenta.pl/"
     ,"Cata": "https://www.cata.com/"
     ,"ZERNBERG": "https://zernberg.com/"
-    ,"AURAMAX": "https://auramax.ru/"
+    ,"AURAMAX": "https://era.trade/"
     ,"Арктос": "https://arktos.ru/"
     ,"Naveka": "https://naveka.ru/"
     ,"EVECS": "https://evecs.ru/"
@@ -300,7 +320,7 @@
     ,"Zilon": "https://zilon.ru/"
     ,"VOLCANO": "https://volcano.com.pl/"
     ,"PATRIOT": "https://patriotgarden.ru/"
-    ,"QuattroClima": "https://quattroclima.ru/"
+    ,"QuattroClima": "https://quattroclima.biz/"
     ,"Tosot": "https://tosot.ru/"
     ,"Lessar": "https://lessar.com/"
     ,"AUX": "https://aux-air.ru/"
@@ -309,16 +329,16 @@
     ,"Axioma": "https://axioma-air.ru/"
     ,"Primera": "https://primera-air.ru/"
     ,"Ecostar": "https://ecostar.ru/"
-    ,"Puff": "https://puff.ru/"
+    ,"Puff": "https://www.puff-inc.ru/"
     ,"KITFORT": "https://kitfort.ru/"
     ,"ENERGY": "https://energy-russia.ru/"
     ,"HomeStar": "https://homestar.ru/"
     ,"VENTZ": "https://ventzavod.ru/"
     ,"Пожтехника": "https://pozhtehnika.ru/"
     ,"TECH-KREP": "https://tech-krep.ru/"
-    ,"Daxmer": "https://daxmer.ru/"
+    ,"Daxmer": "https://www.roofcom.ru/"
     ,"Завод Контакт": "https://zavod-kontakt.ru/"
-    ,"Суперкрепеж": "https://superkrepezh.ru/"
+    ,"Суперкрепеж": "https://www.super-krepeg.ru/"
     ,"OM-Groupp": "https://om-groupp.ru/"
     ,"Спецмашметиз": "https://specmashmetiz.ru/"
     ,"Oklent": "https://oklent.ru/"
@@ -328,29 +348,29 @@
     ,"КЗТИ": "https://kzti.ru/"
     ,"CADElectro": "https://www.cadelectro.ru/"
     ,"Model Studio CS": "https://modelstudiocs.ru/"
-    ,"ПРОММЕТИЗ": "https://bronebolt.com/prommetiz"
+    ,"ПРОММЕТИЗ": "https://bronebolt.com/"
     ,"Plastic Pipe": "https://plastic-pipe.ru/"
     ,"RGP": "https://r-g-p.ru/"
     ,"НРЗ": "https://nrz-radiator.ru/"
     ,"Олимп": "https://olimpdv.ru/"
     ,"ORE": "https://vent-sn.ru/"
-    ,"TERMA": "https://termaheat.com/"
+    ,"TERMA": "https://www.terma.pro/"
     ,"СКРАП": "https://skrap.ru/"
     ,"Dahaci": "https://dahaci.com/"
     ,"Leonord": "https://skrap.ru/brands/leonord/"
-    ,"Матрёна": "https://skrap.ru/brands/matryona/"
-    ,"Крепдил": "https://www.etm.ru/brand/krepezhnyj-dvor-krepdil"
+    ,"Матрёна": null
+    ,"Крепдил": null
     ,"Руфкомплект": "https://rufkomplekt.ru/"
     ,"PRO SORMAT": "https://sormat.com/"
-    ,"PRO BEST-Крепёж": "https://pro-best.ru/"
+    ,"PRO BEST-Крепёж": "https://best-krepeg.ru/"
     ,"Авалда": "https://avalda.ru/"
-    ,"Европартнер": "https://europartner.ru/"
+    ,"Европартнер": "https://europartner.su/"
     ,"СТРАЙК": "https://strikeshop.ru/"
     ,"FORTECA": "https://www.santech.ru/brands/forteca/"
     ,"Selena": "https://www.santech.ru/brands/selena/"
     ,"FITTEX Plus": "https://www.santech.ru/brands/fittex-plus/"
     ,"Strongman": "https://www.santech.ru/brands/strongman/"
-    ,"SML": "https://www.santech.ru/catalog/kanalizatsiya/chugunnaya-kanalizatsiya-sml/"
+    ,"SML": null
     ,"POC": "https://www.santech.ru/"
     ,"HEATON": "https://www.santech.ru/brands/heaton/"
     ,"Байкал": "https://xn--80aabspdhdg5buo.xn--p1ai/"
@@ -359,7 +379,7 @@
     ,"Партнер": "https://partner-dv.ru/"
     ,"Расвет": "https://rasvetnt.ru/"
     ,"Параллель": "https://bolt57.ru/"
-    ,"ОПМ": "https://optprommetiz.ru/"
+    ,"ОПМ": "https://opm.ru/"
     ,"ПроТек": "https://protec-krepezh.ru/"
     ,"Реком": "https://zavod-rekom.ru/"
     ,"Сенсор": "https://www.sensor45.ru/"
@@ -370,7 +390,7 @@
     ,"СД Групп": "https://sdgroup-kuban.ru/"
     ,"CHERBROOKE": "https://cherbrooke.ru/"
     ,"Практика": "https://praktika-rus.ru/"
-    ,"Alta Construction": "https://alta-vent.ru/"
+    ,"Alta Construction": null
   };
 
   const featuredOrder = [
