@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /editor.html
+
+Sitemap: https://absolutkuban.ru/sitemap.xml

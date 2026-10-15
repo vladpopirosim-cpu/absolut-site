@@ -1,16 +1,39 @@
 Options -Indexes
 DirectoryIndex index.html
+ErrorDocument 404 /404.html
 
 RewriteEngine On
+
+# One canonical address: https://absolutkuban.ru (no www, no plain http).
+# REG.RU terminates TLS in nginx and passes the scheme in X-Forwarded-Proto.
 RewriteCond %{HTTP_HOST} ^www\.absolutkuban\.ru$ [NC]
-RewriteCond %{HTTP:X-Forwarded-Proto} =https
 RewriteRule ^ https://absolutkuban.ru%{REQUEST_URI} [R=301,L]
 
-RewriteCond %{HTTP_HOST} ^www\.absolutkuban\.ru$ [NC]
-RewriteRule ^ http://absolutkuban.ru%{REQUEST_URI} [R=301,L]
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://absolutkuban.ru%{REQUEST_URI} [R=301,L]
+
+# Service files are not part of the public site.
+RedirectMatch 404 ^/(admin(/.*)?|editor\.html|assets/editor\.js|redesign(/.*)?)$
+RedirectMatch 404 (?i)\.(md|ya?ml|log|bak|old|orig|sql|zip|tar|gz|env|ini|sh)$
+RedirectMatch 404 /\.(?!well-known/)
 
 <IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Frame-Options "SAMEORIGIN"
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+  Header always unset X-Powered-By
+</IfModule>
+
+# Browser caching for static files: fewer repeat requests to the server.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
 </IfModule>
