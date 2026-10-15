@@ -2210,7 +2210,7 @@ label.consent input[aria-invalid="true"] {
   margin-bottom: 6px;
 }
 
-.prose a {
+.prose a:not(.btn) {
   color: var(--gold-2);
 }
 
