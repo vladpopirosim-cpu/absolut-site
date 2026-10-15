@@ -13,7 +13,7 @@ function escapeHtml(value) {
 
 async function loadContent() {
   try {
-    const response = await fetch("assets/content.json", { cache: "no-store" });
+    const response = await fetch("/assets/content.json", { cache: "no-store" });
     if (!response.ok) return;
     content = await response.json();
     settings = content.settings || {};
@@ -69,7 +69,8 @@ function applySettings() {
     `;
   });
   document.querySelectorAll(".site-footer .footer-row").forEach((root) => {
-    root.innerHTML = `<span>${escapeHtml(company)} · ИНН ${escapeHtml(settings.requisites?.inn || "2312298996")}</span><span>${escapeHtml(primaryEmail)} · ${escapeHtml(phoneDisplay)}</span>`;
+    const footerAddress = address ? ` · ${escapeHtml(address.replace(/\.$/, ""))}` : "";
+    root.innerHTML = `<span>© ${new Date().getFullYear()} ${escapeHtml(company)} · ИНН ${escapeHtml(settings.requisites?.inn || "2312298996")}${footerAddress}</span><span>${escapeHtml(primaryEmail)} · ${escapeHtml(phoneDisplay)}</span>`;
   });
 }
 
@@ -224,13 +225,23 @@ function initCopyCards() {
 
 let activeProjectFilter = "all";
 
-function projectCard(project, index) {
+function projectCard(project, number, detailed) {
   const facts = (project.facts || []).map((fact) => `<li>${escapeHtml(fact)}</li>`).join("");
+  const image = `<img src="${escapeHtml(project.image)}" alt="${escapeHtml(project.title)}" loading="lazy">`;
+  // The full page shows the details in place; teaser cards elsewhere link to them.
+  const media = detailed
+    ? `<div class="project-card__image">${image}</div>`
+    : `<a class="project-card__image" href="projects.html#project-${number}" aria-label="${escapeHtml(project.title)} — подробнее">${image}</a>`;
+  const details = detailed
+    ? `<dl class="project-details">
+        ${project.client ? `<div><dt>Заказчик</dt><dd>${escapeHtml(project.client)}</dd></div>` : ""}
+        ${project.location ? `<div><dt>Локация</dt><dd>${escapeHtml(project.location)}</dd></div>` : ""}
+        ${project.works ? `<div><dt>Работы</dt><dd>${escapeHtml(project.works)}</dd></div>` : ""}
+      </dl>`
+    : "";
   return `
-    <article class="project-card" data-category="${escapeHtml(project.category)}">
-      <a class="project-card__image" href="projects.html" aria-label="${escapeHtml(project.title)}">
-        <img src="${project.image}" alt="${escapeHtml(project.title)}" loading="lazy">
-      </a>
+    <article class="project-card" id="project-${number}" data-category="${escapeHtml(project.category)}">
+      ${media}
       <div class="project-card__body">
         <div class="card-meta">
           <span>${escapeHtml(project.category)}</span>
@@ -240,6 +251,7 @@ function projectCard(project, index) {
         <p>${escapeHtml(project.meta)}</p>
         <div class="project-accent">${escapeHtml(project.accent || project.location)}</div>
         <ul>${facts}</ul>
+        ${details}
       </div>
     </article>
   `;
@@ -249,10 +261,34 @@ function renderProjects() {
   document.querySelectorAll("[data-projects]").forEach((root) => {
     const allProjects = content.projects || [];
     const limit = Number(root.dataset.limit || allProjects.length);
+    const detailed = root.hasAttribute("data-projects-detailed");
     const projects = allProjects
       .filter((project) => activeProjectFilter === "all" || project.category === activeProjectFilter)
       .slice(0, limit);
-    root.innerHTML = projects.map(projectCard).join("");
+    root.innerHTML = projects.map((project) => projectCard(project, allProjects.indexOf(project) + 1, detailed)).join("");
+  });
+}
+
+function scrollToProjectHash() {
+  if (!/^#project-\d+$/.test(location.hash)) return;
+  document.querySelector(location.hash)?.scrollIntoView({ block: "start" });
+}
+
+function applyDataCounts() {
+  // Counters and year follow the content, so the numbers on the page never disagree.
+  const sources = {
+    objectRegistry: (content.objectRegistry || []).length,
+    partners: (content.partners || []).length,
+    socialProjects: (content.socialProjects || []).length
+  };
+  document.querySelectorAll("[data-count-source]").forEach((node) => {
+    const value = sources[node.dataset.countSource];
+    if (!value) return;
+    if (node.hasAttribute("data-count-to")) node.dataset.countTo = String(value);
+    else node.textContent = String(value);
+  });
+  document.querySelectorAll("[data-current-year]").forEach((node) => {
+    node.textContent = String(new Date().getFullYear());
   });
 }
 
@@ -456,6 +492,16 @@ function initRequestForm() {
     }
     clearInvalid();
 
+    const consent = form.querySelector("[name='consent']");
+    if (consent && !consent.checked) {
+      consent.setAttribute("aria-invalid", "true");
+      consent.focus();
+      status.textContent = "Чтобы отправить заявку, подтвердите согласие на обработку персональных данных.";
+      status.dataset.state = "error";
+      return;
+    }
+    consent?.removeAttribute("aria-invalid");
+
     const formEmail = settings.formEmail || settings.primaryEmail || "absolut-23@mail.ru";
     const endpoint = settings.formEndpoint || "";
     if (endpoint) {
@@ -464,6 +510,7 @@ function initRequestForm() {
         phone,
         message,
         website: String(data.get("website") || ""),
+        consent: Boolean(consent?.checked),
         source: window.location.href
       };
 
@@ -692,6 +739,7 @@ function initMaterialCatalog() {
 async function bootstrap() {
   await loadContent();
   applySettings();
+  applyDataCounts();
   initNavigation();
   initScrollProgress();
   initSpotlight();
@@ -699,6 +747,7 @@ async function bootstrap() {
   initCopyCards();
   initProjectFilters();
   renderProjects();
+  scrollToProjectHash();
   renderSocialProjects();
   renderPartners();
   initMaterialCatalog();

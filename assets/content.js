@@ -31,14 +31,14 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, Новознаменский район",
       "client": "ГК «ТОЧНО»",
       "works": "Инженерные системы, СМР, сопровождение объекта",
-      "image": "assets/projects/pervoe-mesto.jpg",
+      "image": "assets/projects/pervoe-mesto.webp",
       "accent": "масштабный район",
       "facts": [
         "18 кварталов",
         "крупная социальная инфраструктура",
         "комфорт-класс"
       ],
-      "verified": "Открытые источники описывают проект как один из крупных жилых районов Краснодара."
+      "verified": "Один из крупнейших жилых районов Краснодара."
     },
     {
       "title": "ЖК «Сказка град»",
@@ -48,12 +48,12 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, Гидростроителей",
       "client": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Отопление, вентиляция, ВК, ВНС, АТП",
-      "image": "assets/projects/skazka-grad.jpg",
+      "image": "assets/projects/skazka-grad.webp",
       "accent": "бизнес и комфорт+",
       "facts": [
         "9 домов",
         "25 этажей",
-        "880 квартир по открытым данным"
+        "880 квартир"
       ]
     },
     {
@@ -64,7 +64,7 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, ул. Конгрессная, 13",
       "client": "ROMEX / Ромекс-Кубань",
       "works": "Отопление, вентиляция, ВК, ВНС",
-      "image": "assets/projects/krasnaya-ploshad.jpg",
+      "image": "assets/projects/krasnaya-ploshad.webp",
       "accent": "город в городе",
       "facts": [
         "у ТРЦ «Красная Площадь»",
@@ -80,7 +80,7 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, ул. Автолюбителей",
       "client": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Монтажные и инженерные работы",
-      "image": "assets/projects/strizhi.jpg",
+      "image": "assets/projects/strizhi.webp",
       "accent": "высотный комплекс",
       "facts": [
         "литер 1",
@@ -96,10 +96,10 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, ул. Старокубанская",
       "client": "ССК / СпецСтройКубань",
       "works": "Комплекс инженерных и монтажных работ",
-      "image": "assets/projects/fontany.jpg",
+      "image": "assets/projects/fontany.webp",
       "accent": "у реки Кубань",
       "facts": [
-        "13-16 литеров по открытым источникам",
+        "13–16 литеров",
         "17-24 этажа",
         "комфорт / бизнес-класс"
       ]
@@ -112,7 +112,7 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, район парка «Краснодар»",
       "client": "ВКБ-Новостройки",
       "works": "Монтажные работы",
-      "image": "assets/projects/park-u-doma.jpg",
+      "image": "assets/projects/park-u-doma.webp",
       "accent": "вид на парк",
       "facts": [
         "18-22 этажа",
@@ -128,7 +128,7 @@ window.ABSOLUT_CONTENT = {
       "location": "Ростов-на-Дону",
       "client": "СК10",
       "works": "Комплекс работ по объекту",
-      "image": "assets/projects/greenside.jpg",
+      "image": "assets/projects/greenside.webp",
       "accent": "зеленый квартал",
       "facts": [
         "центр Ростова-на-Дону",
@@ -144,12 +144,12 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар",
       "client": "ЮгСтройИмпериал",
       "works": "Жилой комплекс и социальная инфраструктура",
-      "image": "assets/projects/elegant.jpg",
+      "image": "assets/projects/elegant.webp",
       "accent": "жилой + медицина",
       "facts": [
         "25 этажей",
         "поликлиника в составе портфеля",
-        "бизнес-класс по открытым источникам"
+        "бизнес-класс"
       ]
     },
     {
@@ -160,7 +160,7 @@ window.ABSOLUT_CONTENT = {
       "location": "Краснодар, ул. Героя Яцкова",
       "client": "ГК «ТОЧНО» / ЮгСтройИмпериал",
       "works": "Инженерные и монтажные работы",
-      "image": "assets/projects/abrikosovo.jpg",
+      "image": "assets/projects/abrikosovo.webp",
       "accent": "фруктовый квартал",
       "facts": [
         "комфорт+",
@@ -174,19 +174,19 @@ window.ABSOLUT_CONTENT = {
       "title": "Школа на 1650 мест",
       "meta": "DOGMA / Монолит · Краснодар",
       "type": "Образование",
-      "image": "assets/projects/school-1650.jpg"
+      "image": "assets/projects/school-1650.webp"
     },
     {
       "title": "Школа на 1550 мест",
       "meta": "ВКБ-Новостройки · Восточно-Кругликовский район",
       "type": "Образование",
-      "image": "assets/projects/school-1550.jpg"
+      "image": "assets/projects/school-1550.webp"
     },
     {
       "title": "Детский сад на 350 мест",
       "meta": "ГК «ИНСИТИ» · ст. Елизаветинская",
       "type": "Дошкольное",
-      "image": "assets/projects/kindergarten-350.jpg"
+      "image": "assets/projects/kindergarten-350.webp"
     },
     {
       "title": "Детский сад на 210 мест",
@@ -202,13 +202,13 @@ window.ABSOLUT_CONTENT = {
       "title": "Фитнес-центр «BALANCE»",
       "meta": "ЮгСтройИмпериал · ЖК «Империал», литер 8",
       "type": "Спорт и коммерция",
-      "image": "assets/projects/balance.jpg"
+      "image": "assets/projects/balance.webp"
     },
     {
       "title": "Школа бокса",
       "meta": "ЮгСтройИмпериал · ЖК «Перемена»",
       "type": "Спорт",
-      "image": "assets/projects/boxing-school.jpg"
+      "image": "assets/projects/boxing-school.webp"
     }
   ],
   "objectRegistry": [

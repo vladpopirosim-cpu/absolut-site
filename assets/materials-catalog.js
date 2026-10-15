@@ -415,6 +415,42 @@
     }
   };
 
+  // Domains that no longer exist (checked 2026-10-15): keep the brand and logo, drop the dead link.
+  const unreachableSites = new Set([
+    "axioma-air.ru",
+    "baz-armatura.ru",
+    "diciti.ru",
+    "ecostar.ru",
+    "engy.ru",
+    "esq-group.ru",
+    "fiordi.ru",
+    "funai-aircon.com",
+    "hitkomplekt.ru",
+    "hubertclimate.ru",
+    "konner.ru",
+    "ldcompany.ru",
+    "livnynasos.ru",
+    "lmz-semenov.ru",
+    "mechel-service.ru",
+    "mirhomutov.ru",
+    "nrz-radiator.ru",
+    "oasis-climate.ru",
+    "olimpdv.ru",
+    "om-groupp.ru",
+    "r-g-p.ru",
+    "rufkomplekt.ru",
+    "specmashmetiz.ru",
+    "zernberg.com"
+  ]);
+  const liveWebsite = (website) => {
+    if (!website) return null;
+    try {
+      return unreachableSites.has(new URL(website).hostname.replace(/^www\./, "")) ? null : website;
+    } catch {
+      return null;
+    }
+  };
+
   const registry = Array.from(entries.values()).map((item) => ({
     name: item.name,
     categories: Array.from(item.categories),
@@ -422,7 +458,7 @@
     productsByCategory: Object.fromEntries(Array.from(item.productsByCategory, ([category, products]) => [category, Array.from(products)])),
     aliases: Array.from(item.aliases),
     logo: logoByName[item.name] || siteLogoFor(websiteByName[item.name]),
-    website: websiteByName[item.name] || null
+    website: liveWebsite(websiteByName[item.name])
   }));
 
   const byKey = new Map(registry.map((item) => [keyFor(item.name), item]));
@@ -431,7 +467,7 @@
     return item ? {
       ...item,
       logo: logoByName[name] || siteLogoFor(websiteByName[name]),
-      website: websiteByName[name] || null,
+      website: liveWebsite(websiteByName[name]),
       wordmarkSize: wordmarkSize[name] || ""
     } : null;
   }).filter(Boolean);

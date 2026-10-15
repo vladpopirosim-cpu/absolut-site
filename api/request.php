@@ -144,6 +144,10 @@ if (mb_strlen($message) > 1200) {
     respond(422, false, 'Проверьте поле «Комментарий»: сократите текст до 1200 символов.');
 }
 
+if (($data['consent'] ?? false) !== true) {
+    respond(422, false, 'Чтобы отправить заявку, подтвердите согласие на обработку персональных данных.');
+}
+
 $ip = clientIp();
 claimSlot($ip);
 
@@ -153,6 +157,7 @@ $relayPayload = json_encode([
     'Телефон' => $phone,
     'Комментарий' => $message !== '' ? $message : 'не указан',
     'Источник' => $safeSource,
+    'Согласие на обработку ПДн' => 'дано ' . date('d.m.Y H:i'),
     '_subject' => 'Заявка с сайта ООО АБСОЛЮТ',
     '_template' => 'table',
     '_captcha' => 'false',
