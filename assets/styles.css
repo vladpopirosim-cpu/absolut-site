@@ -2235,3 +2235,72 @@ label.consent input[aria-invalid="true"] {
     font-size: clamp(28px, 8.4vw, 45px);
   }
 }
+
+/* Desktop first screen: heading, text, buttons and the stats panel fit without scrolling */
+@media (min-width: 1081px) {
+  .hero {
+    min-height: auto;
+    padding: clamp(28px, 6vh, 72px) 0 clamp(28px, 6vh, 64px);
+  }
+
+  .hero__command {
+    grid-template-columns: minmax(0, 1fr) 420px;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .hero__copy {
+    min-height: 0;
+  }
+
+  .hero .status-line {
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    max-width: none;
+    margin-bottom: 22px;
+    font-size: clamp(42px, min(4.2vw, 7.6vh), 70px);
+    line-height: .98;
+  }
+
+  .hero .lead {
+    font-size: clamp(17px, 1.35vw, 20px);
+  }
+
+  .hero__buttons {
+    margin-top: 26px;
+  }
+
+  .hero .mission-grid div {
+    min-height: clamp(104px, 13vh, 150px);
+    padding: 20px 24px;
+  }
+}
+
+/* Low desktop screens (laptops at 125-150% zoom): tighten the stats panel */
+@media (min-width: 1081px) and (max-height: 760px) {
+  .hero .mission-grid div {
+    min-height: 0;
+    padding: 16px 22px;
+  }
+
+  .hero .mission-grid strong {
+    margin-bottom: 8px;
+    font-size: 40px;
+  }
+
+  .hero .mission-panel__note {
+    padding: 16px 22px;
+  }
+
+  .hero .mission-panel__note p {
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+}
+
+.mission-panel__top strong {
+  white-space: nowrap;
+}
