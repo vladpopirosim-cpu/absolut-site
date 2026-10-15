@@ -13,6 +13,11 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://absolutkuban.ru%{REQUEST_URI} [R=301,L]
 
+# The home page has one address: / (only when a visitor asks for /index.html,
+# not when Apache looks it up internally for /).
+RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+RewriteRule ^index\.html$ https://absolutkuban.ru/ [R=301,L]
+
 # Service files are not part of the public site.
 RedirectMatch 404 ^/(admin(/.*)?|editor\.html|assets/editor\.js|redesign(/.*)?)$
 RedirectMatch 404 (?i)\.(md|ya?ml|log|bak|old|orig|sql|zip|tar|gz|env|ini|sh)$
